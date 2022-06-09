@@ -1,0 +1,15 @@
+func solution(_ x:Int, _ n:Int) -> [Int64] {
+    var resultArray: [Int64] = []
+    
+    for i in 1...n {
+        resultArray.append(Int64(x*i))
+    }
+    return resultArray
+}
+
+문제
+ 함수 solution은 정수 x와 자연수 n을 입력 받아, x부터 시작해 x씩 증가하는 숫자를 n개 지니는 리스트를 리턴해야 합니다. 다음 제한 조건을 보고, 조건을 만족하는 함수, solution을 완성해주세요.
+ 
+풀이.
+for loop을 이용해 배열에 append를 해서 증가한 숫자를 추가한 뒤 리턴하면 된다고 생각 함
+x가 Int형이여서 Int 64를 리턴해야 되기 난감했지만 Int64() 로 감싸주면 해결!  

@@ -1,0 +1,73 @@
+시행 착오 
+1. numbers의 길이가 만약에 5라고 치면은 
+
+0번째 인덱스 값은 첫번째,두번째,세번째,네번째까지 값을 더해야한다. 
+
+1번째 인덱스 값은 두번째,세번째,네번째의 값과 더하면 된다.
+
+반복하여 마지막 네번째 인덱스 값은 다섯번째 인덱스 값과 더한 뒤 오름 차순으로 정렬하여 리턴하면 된다. 
+
+ 
+
+2. 따라서 배열을 먼저 만들었다. 
+
+var result: Int[] = [] //배열생성
+3. numbers.count를 이용하여 배열에 수를 확인하고
+
+for Loop 안에 for Loop을 돌려 result 배열에 더한값을 추가하도록 하였다. 
+
+ 
+
+4. 이후 sorted로 배열을 오름차순으로 정렬하면 된다고 생각했다. 
+
+하지만 배열을 사용하면 문제가 발생한다. 
+중복 요소를 허용하지 않기 때문에 Set을 사용하여야 한다. 
+
+ 
+var result: Set<Int> = []
+ 
+
+이 후 append가 아닌 insert를 이용하여 삽입하여야 한다. 
+
+result.insert()
+ 
+
+마지막으로 Set배열을 sorted를 이용하여 오름차순으로 정렬하고 리턴하여야 한다.
+
+
+
+나의 코드
+
+import Foundation
+
+func solution(_ numbers:[Int]) -> [Int] {
+    var result: Set<Int> = []
+    for i in 0 ..< numbers.count{
+        for j in i+1 ..< numbers.count {
+            result.insert(numbers[i] + numbers[j])
+        } 
+    }
+    
+    return result.sorted()
+}
+
+
+
+중복요소를 배열에서도 표현 가능함
+
+
+import Foundation
+
+func solution(_ numbers:[Int]) -> [Int] {
+    var result = [Int]()
+
+    for i in 0 ..< numbers.count {
+        for j in i + 1 ..< numbers.count {
+            let num = numbers[i] + numbers[j]
+            if !result.contains(num) {
+                result.append(num)
+            }
+        }
+    }
+    return result.sorted()
+}

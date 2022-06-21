@@ -1,0 +1,59 @@
+풀이 
+import Foundation
+
+func solution(_ array:[Int], _ commands:[[Int]]) -> [Int] {
+    
+    var result:[Int] = []
+    
+    for i in 0 ..< commands.count{  //0부터 커멘드에 길이까지 반복
+        var xArray: [Int] = []
+        for j in (commands[i][0] - 1) ... (commands[i][1] - 1){
+            xArray.append(array[j])
+        }
+    
+        xArray.sort()
+        print (xArray)
+        result.append(xArray[(commands[i][2] - 1)])
+    }
+        
+    return result
+}
+
+
+
+풀이방법
+
+
+
+1. 이차원 배열인 commands의 인덱스에 접근하기 위해 길이를 먼저 알아야 한다고 생각했다
+
+commands.count
+2. i는 commands의 [i][0] 가 될것이라 생각했지만 인덱스는 0부터 시작하므로 -1을 해주어야 한다.
+
+- [0][0]의 값이 2이면은 array의 두번째 숫자에 접근하는 것이 아니라 세번째 숫자에 접근하게 됨 
+
+ j 도 마찬가지로 commands의 [i][1]에서 -1을 해주어야 함 
+
+for문으로 루프돌림
+
+ 
+
+3. xArray라는 정수형 배열을 선언하고  append를 통해 array의 i-1의 값을 계속 추가한다.
+
+4. xArray 배열을 sort()를 통해 정렬하였다
+
+5. commands 의 [i][2]의 값을 가져와서 자리수를 찾아 내어 그값을 저장해야 했다
+
+이때도 -1을 해주어야 한다. commands [i][2]의 값은 항상 내가 원하는 것에 +1이 되어 있기 때문이다. 
+
+out of range로 개고생했다. 
+
+이제 result라는 배열에 append를 통해 원하는 값을 return 하면 된다. 
+
+ 
+
+배운점
+
+out of range가 나오면 항상 범위를 잘 살펴봐야 한다. 
+
+2차원 배열이라고 쫄았는데 쫄지말자 

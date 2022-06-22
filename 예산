@@ -1,0 +1,44 @@
+
+
+
+
+내가 풀이 한 방법 
+1.  먼저 d를 .sorted 로 오름차순으로 정렬을 해야한다 생각했다.
+
+왜냐하면 각 부서마다 원하는 금액을 줄때 작은곳부터 많은 부서 순으로 차례로 지원하게 되면 더 많은 부서들에게 지원을 해 줄 수 있기 때문인다. 
+
+
+
+2. 이후 .count로 각 부서의 수를 for 루프로 반복하였다.
+
+정렬된 부서별 금액을 계속 a라는 함수에 더하고
+
+만약 더한 부서의 다음 차례의 부서와 금액을 합쳤을 경우의 금액이  예산을 넘지 않으면 지원을 해줄 수 있다고 생각을 했다.
+
+
+
+3.지원할수 있는 부서의 수를 파악하는 문제이기 떄문에 result 배열에 오름차순으로 정렬된 값들을 .append로 추가 하도록 한뒤 
+
+.count로 반환 하여 답을 도출했다. 
+
+
+
+import Foundation
+
+func solution(_ d:[Int], _ budget:Int) -> Int {
+    var result:[Int] = []
+    var array = d.sorted()
+    var a = 0
+    
+    for i in 0 ..< d.count{
+        
+        if budget >= (a + array[i]){
+            a += array[i]
+            result.append(array[i])
+        }
+        
+    }
+    
+    return result.count
+}
+

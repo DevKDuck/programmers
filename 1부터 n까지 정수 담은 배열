@@ -1,0 +1,24 @@
+문제) 
+정수 n이 주어지면, 1부터 n까지 의 정수를 순서대로 담은 배열을 리턴하도록 해라 
+
+
+
+첫번째 예제 ) 
+n = 3 
+result = [1,2,3]
+
+
+두번째 예제)
+n = 5
+result = [1,2,3,4,5]
+
+
+import Foundaton 
+
+func solution(_ n: Int) -> [Int] {
+  var result:[Int] = []
+  for i in 1...n{
+    result.append(i)
+  }
+  return result
+}

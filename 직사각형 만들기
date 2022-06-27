@@ -1,0 +1,65 @@
+2차원배열인 v매개변수를 준다. 
+이때 매개변수에 들어간 내용은 각각 직사각형의 [x][y]의 좌표를 나타낸 것이다.
+총 3개의 좌표를 알려주며 직사각형의 각 변은 x,y축에 평행이다. 
+나머지 한변의 좌표를 찾는 문제이다. 
+
+ex)
+
+첫번째
+v 값 = [[1,4],[3,4],[3,10]]
+result = [1,10]
+ 
+
+두번째
+v 값 = [[1,1],[2,2],[1,2]]
+result = [2,1]
+
+
+
+내가 생각한 순서 
+1. v에 무조건 3개의 좌표값이 주어지기떄문에 x,y를 각각 비교하여 같은 값이 없는 수를 배열에 추가해 리턴하려고 했다.
+2. if 문을 사용하여 각각의 인덱스의 값을 비교하였고 조건이 참이면 append를 통해 ans라는 배열에 추가하고 리턴하였다. 
+
+
+
+코드 
+import Foundation
+
+func solution(_ v: [[Int]]) -> [Int]{
+    var ans = [Int]()
+    let a = v[0][0]
+    let b = v[1][0]
+    let c = v[2][0]
+    let d = v[0][1]
+    let e = v[1][1]
+    let f = v[2][1]
+    
+    
+    if a == b {
+        ans.append(c)
+    }
+    if a == c {
+        ans.append(b)
+    }
+    
+    if b == c {
+        ans.append(a)
+    }
+    
+    if d == e {
+        ans.append(f)
+    }
+    
+    if d == f {
+        ans.append(e)
+    }
+    
+    if e == f {
+        ans.append(d)
+    }
+    
+    return ans
+}
+
+
+solution([[1,1],[2,2],[1,2]])

@@ -1,0 +1,49 @@
+행렬의 덧셈
+문제 설명
+행렬의 덧셈은 행과 열의 크기가 같은 두 행렬의 같은 행, 같은 열의 값을 서로 더한 결과가 됩니다. 2개의 행렬 arr1과 arr2를 입력받아, 행렬 덧셈의 결과를 반환하는 함수, solution을 완성해주세요.
+
+제한 조건
+행렬 arr1, arr2의 행과 열의 길이는 500을 넘지 않습니다.
+입출력 예
+arr1	arr2	return
+[[1,2],[2,3]]	[[3,4],[5,6]]	[[4,6],[7,9]]
+[[1],[2]]	[[3],[4]]	[[4],[6]]
+
+
+
+
+
+
+
+풀이방법 
+
+1. 2차원배열에서 arr1[i][j] + arr2[i][j]의 인덱스 값에 접근해 더하면 된다고 생각했음
+
+2. 1차원배열의 변수 array를 만들어 arr1[i][j] + arr2[i][j]의 합을 추가해야한다고 생각헀음
+
+3. 2차원 배열의 변수 result를 만들어 array를 추가해야겠다고 생각했음
+
+4. for 문에서 i의 범위는 arr1과 arr2의 행렬의 크기가 같기 때문에 arr1행의 크기를 구하였음
+
+arr.count 다음으로 인덱스는 0부터 시작해 -1 해줌 
+
+5. for문에서 j의 범위는 arr1과 arr2의 행렬의 크기가 같기 때문에 arr1열의 크기를 구하였음
+
+arr[i].count 다음으로 인덱스는 0부터 시작해 -1 해줌
+
+6. array에 합산한 값을 추가하고 result에 array를 추가한뒤 array를 초기화 해주어야 하기 때문에 array.removeAll()함수를 호출함
+
+
+내 코드 
+func solution(_ arr1:[[Int]], _ arr2:[[Int]]) -> [[Int]] {
+    var array1 = [Int]()
+    var result = [[Int]]()
+    for i in 0..<arr1.count{
+        for j in 0..<arr1[i].count{
+            array1.append(arr1[i][j] + arr2[i][j])
+        }
+        result.append(array1)
+        array1.removeAll()
+    }
+    return result
+}

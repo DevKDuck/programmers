@@ -1,0 +1,43 @@
+문자열 다루기 기본
+문제 설명
+문자열 s의 길이가 4 혹은 6이고, 숫자로만 구성돼있는지 확인해주는 함수, solution을 완성하세요. 예를 들어 s가 "a234"이면 False를 리턴하고 "1234"라면 True를 리턴하면 됩니다.
+
+제한 사항
+s는 길이 1 이상, 길이 8 이하인 문자열입니다.
+s는 영문 알파벳 대소문자 또는 0부터 9까지 숫자로 이루어져 있습니다.
+입출력 예
+s	return
+"a234"	false
+"1234"	true
+
+
+
+
+
+
+풀이방법
+
+1. String 타입의 s파라미터를 arrayS라는 배열에 담아서 선언함
+
+이유: String.count는 O(n)이 걸리는데 Array.count는 O(1)이 걸림
+
+ 
+2.  if 문과 || or 논리연산자를 이용해 arrayS의 수가 4인지 6인지 판단
+
+3. Int(s)로 String에서 Int타입으로 형변환하고 만약에 nil이 아니라면 true를 반환하도록 함
+
+ 
+
+
+내 코드 
+func solution(_ s:String) -> Bool {
+    var arrayS = Array(s)
+    
+    if arrayS.count == 4 || arrayS.count == 6 {
+        if Int(s) != nil{
+            return true
+        }
+    }
+    
+    return false
+}

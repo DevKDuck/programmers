@@ -1,0 +1,100 @@
+최대공약수와 최소공배수
+문제 설명
+두 수를 입력받아 두 수의 최대공약수와 최소공배수를 반환하는 함수, solution을 완성해 보세요. 배열의 맨 앞에 최대공약수, 그다음 최소공배수를 넣어 반환하면 됩니다. 예를 들어 두 수 3, 12의 최대공약수는 3, 최소공배수는 12이므로 solution(3, 12)는 [3, 12]를 반환해야 합니다.
+
+제한 사항
+두 수는 1이상 1000000이하의 자연수입니다.
+입출력 예
+n	m	return
+3	12	[3, 12]
+2	5	[1, 10]
+입출력 예 설명
+입출력 예 #1
+위의 설명과 같습니다.
+
+입출력 예 #2
+자연수 2와 5의 최대공약수는 1, 최소공배수는 10이므로 [1, 10]을 리턴해야 합니다.
+
+
+
+풀이방법
+
+1.for in 반복문을 이용해 n을 1씩증가하는 정수로 나누어 나머지가 0이되면 nArray배열에 추가함
+
+nArray배열에 추가된 수들은 n의 약수들임
+
+2. 마찬가지로 m의 약수들도 mArray배열에 추가함
+
+3..count로 nArray의 인자의 갯수를 이용해 mArray에 nArray[i]가 포함되어있다면 gonYaksu배열에 추가하도록했다. 
+
+4. 최대공약수는 gonYaksu배열에 있는 수 중에 마지막인덱스에 접근해야하기때문에 
+
+.endIndex의 offsetBy-1을 이용했다. 
+
+endIndex는 마지막 인덱스가 아닌 마지막 인덱스의 다음인덱스이기 때문
+
+그 수를 result 배열에 .append를 이용해 추가했다.
+
+5. 최소공배수를 구하기 위해 nArray2에는 n을 1~m번까지 곱한수들을 추가했다.
+
+마찬가지로 mArray2에는 m을 1~n번까지 곱한수들을 추가했다. 
+
+이때 1~ n/m을 범위로 지정한 이유은 n*m은 무조건 공배수이기 때문이다.
+
+6. 1에서 nArray2의 요소의 갯수만큼 j를 반복시켰고 mArray2에 nArray2[j]가 포함되어 있다면 nArray2[j]
+
+의 값을 result에 append하고 break 하도록 했다. 
+
+7. 최대공약수를 인덱스 0, 최대공배수를 인덱스 1 로 가지는 정수형 배열 result를 반환 
+
+
+
+내코드
+func solution(_ n:Int, _ m:Int) -> [Int] {
+    var nArray = [Int]()
+    var mArray = [Int]()
+    var gongYaksu = [Int]()
+    var result = [Int]()
+    var nArray2 = [Int]()
+    var mArray2 = [Int]()
+    
+    for i in 1...n{
+        if n % i == 0{
+            nArray.append(i)
+        }
+    }
+    
+    for i in 1...m{
+        if m % i == 0{
+            mArray.append(i)
+        }
+    }
+    
+    for i in 0..<nArray.count{
+        if mArray.contains(nArray[i]){
+            gongYaksu.append(nArray[i])
+        }
+    }
+    
+    let choidaegonYaksu = gongYaksu.index(gongYaksu.endIndex, offsetBy: -1)
+    result.append(gongYaksu[choidaegonYaksu])
+    
+    
+    
+    for i in 1...m{
+        nArray2.append(n * i)
+    }
+    
+    for i in 1...n{
+        mArray2.append(m * i)
+    }
+    
+    for j in 0..<nArray2.count{
+        if mArray2.contains(nArray2[j]){
+            result.append(nArray2[j])
+            break
+        }
+    }
+    
+    return result
+}

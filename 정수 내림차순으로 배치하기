@@ -1,0 +1,30 @@
+풀이방법
+array변수 - n을 문자열로 변경후 각 단위 자리마다 문자열 하나씩 
+배열에 저장
+k 상수 - 문자열 생성자를 이용해 Int64 자료형을 문자열로 바꿈
+array2 상수 - 오름차순으로 array 배열 정렬
+result 변수 - 빈 문자열
+
+1. for in loop으로 array배열에 n을 각 단위 자리마다 문자열 하나씩
+배열에 저장
+2. for in loop로 result에 array2의 모든 인덱스를 차례로 합함
+
+3. result를 Int64자료형으로 반환함 
+이때 문자열을 Int64자료형으로 바꾸는 것으로 값이 있는지 모르기때문에 
+옵셔널 해제를 해주러야함 ! 
+
+
+
+func solution(_ n:Int64) -> Int64 {
+    var array = [String]()
+    let k = String(n)
+    for i in k{
+        array.append(String(i))
+    }
+    let array2 = array.sorted(by: >)
+    var result = ""
+    for i in 0..<array2.count{
+        result += array2[i]
+    }
+    return Int64(result)!
+}

@@ -1,0 +1,30 @@
+absolutes라는 매개변수는 Int형 배열이고 signs는 boolean형 배열임 
+이때 signs가 True면 absolutes false면 음수absolutes로 바뀜
+모든 배열의 요소를 더한다음 반환
+
+
+내풀이
+result 변수는 리턴 값이므로 0으로 초기화  
+
+1. absolutes와 signs의 갯수가 같으므로 모든 인덱스에 접근하기 위해 for in반복문사용
+
+범위연산자는 0부터 signs 혹은 absolutes의 갯수(.count)
+
+2. if else문으로 signs가 참이면 absolutes를 result에 더해주고 else거짓일때는 -생성자()를 만들어 더해주도록 함 
+
+ 
+내코드
+import Foundation
+
+func solution(_ absolutes:[Int], _ signs:[Bool]) -> Int {
+    var result = 0
+    for i in 0..<signs.count{
+        if signs[i] == true{
+            result += absolutes[i]
+        }else {
+            result += -(absolutes[i])
+        }
+    }
+    
+    return result
+}

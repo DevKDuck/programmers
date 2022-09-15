@@ -1,0 +1,150 @@
+다음 큰 숫자
+문제 설명
+자연수 n이 주어졌을 때, n의 다음 큰 숫자는 다음과 같이 정의 합니다.
+
+조건 1. n의 다음 큰 숫자는 n보다 큰 자연수 입니다.
+조건 2. n의 다음 큰 숫자와 n은 2진수로 변환했을 때 1의 갯수가 같습니다.
+조건 3. n의 다음 큰 숫자는 조건 1, 2를 만족하는 수 중 가장 작은 수 입니다.
+예를 들어서 78(1001110)의 다음 큰 숫자는 83(1010011)입니다.
+
+자연수 n이 매개변수로 주어질 때, n의 다음 큰 숫자를 return 하는 solution 함수를 완성해주세요.
+
+제한 사항
+n은 1,000,000 이하의 자연수 입니다.
+입출력 예
+n	result
+78	83
+15	23
+입출력 예 설명
+입출력 예#1
+문제 예시와 같습니다.
+입출력 예#2
+15(1111)의 다음 큰 숫자는 23(10111)입니다.
+
+
+풀이방법
+
+var parametern 
+
+= n은 매개변수로 바꿀 수 없으므로 parametern변수를 만들어 변형할 수 있도록 함
+
+var remainderone
+
+= n을 2진법으로 바꾸었을 경우 1의 갯수만큼  +1을 할 것임 
+
+var resultRemainderone
+
+= n 다음 큰 큰 숫자중에 2진법으로 바꾸었을 경우 1의 갯수만큼 +1을 할 것임 
+
+ 
+
+조건 1. n의 다음 큰 숫자는 n보다 큰 자연수 입니다.
+조건 2. n의 다음 큰 숫자와 n은 2진수로 변환했을 때 1의 갯수가 같습니다.
+조건 3. n의 다음 큰 숫자는 조건 1, 2를 만족하는 수 중 가장 작은 수 입니다.
+조건 1. 다음 큰 숫자의 범위는 n+1부터 1,000,000이하의 자연수임
+
+for Loop을 사용하면됨
+
+ 
+
+조건 2. 2진수로 변환을 먼저해야함 
+
+2진수는 아래와 같이 계속 2로 나눌 수 있을만큼 나누고 몫과 나머지를 차례로 읽으면 2진수로 변환이 가능함
+
+
+이 문제는 2진수로 변환하고 1의 갯수가 필요함
+
+ 
+
+자연수 n의 1의 갯수를 구하는 법
+
+1.먼저 parametern을 2로 나누 었을경우 몫이 0보다 크면 계속 나누도록 조건식을 지정함 
+
+while parametern / 2 > 0
+
+ 
+
+2. parametern을 2로 나누었을경우 나머지가 1이면 reaminderone에 1을 더하도록함
+
+if parametern % 2 == 1{
+            remainderone += 1
+        }
+
+3. 이제 실제로 parametern을 2로 나누어 값을 변경해주도록함
+
+ parametern = parametern / 2
+
+ 
+
+4. 우리가 더한것들은 다 나머지 값들이므로 몫이 1인 값을 생각해 1을 더해줌
+
+ remainderone += 1
+
+ 
+
+다음 튼 숫자 구하기
+
+1. 범위연산자를 통해 n+1~1,000,000의 범위를 i에게 줄 것임 
+
+for i in (n + 1)...1000000
+
+ 
+
+2. i 는 매개변수로 변경할 수 없어 i의 값을 받을 수 있는 result 변수를 선언
+
+이후에 i의 값이 바뀔때마다 resulRemainderone을 초기화해줌
+
+안그러면 i값이 증가할때다 전에 값들이 축적됨
+
+마찬가지로 자연수n을 2진수로 변환하였을때 1의 갯수를 구하는 방법으로 resulRemainderone을 구함
+
+ 
+
+3. 1의 갯수가 같은것은 remainderone와 resultRemainderone가 같다는 뜻으로 조건문 if를 이용함
+
+다음 큰 수인 i를 리턴해줌 
+
+return을 리턴하게 되면 while문을 계산한값이 나와서 안됨  
+
+ 
+
+ 
+
+ 
+내코드
+ 
+
+import Foundation
+
+func solution(_ n:Int) -> Int
+{
+    var parametern = n
+    let answer = 0
+    var remainderone = 0
+    var resultRemainderone = 0
+    
+    
+    while parametern / 2 > 0 {
+        if parametern % 2 == 1{
+            remainderone += 1
+        }
+        parametern = parametern / 2
+    }
+    remainderone += 1
+    
+    for i in (n + 1)...1000000{
+        var result = i
+        resultRemainderone = 0
+        while result / 2 > 0 {
+            if result % 2 == 1 {
+                resultRemainderone += 1
+            }
+            result = result / 2
+        }
+        resultRemainderone += 1
+        if remainderone == resultRemainderone {
+            return i
+        }
+    }
+    return answer
+}

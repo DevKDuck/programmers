@@ -1,0 +1,76 @@
+내가 푼 풀이방법
+
+ 
+
+1.  .map 메서드를 이용해 문자열 타입의 s를 한글자씩 담은  Int형 배열 array 저장
+예전에도 헷갈렸던 부분인데 문자열을 for in 반복문을 사용하여 순환하면 Character형이 반환됨
+
+때문에 mapping 메서드를 이용해 String으로 형변환하고 Int로 다시한번 형변환해야함
+
+ 
+
+2. count , zeroRemoveCount 변수를 선언 및 0으로 초기화
+최종적으로 return 할 값 이진변환의 횟수(count) , 0을 지운 횟수 (zeroRemoveCount)
+
+결과가 [1] 이되어야 하기 떄문에 result상수 선언  
+
+3. while 문을 이용해  Int형 배열 array가 [1]이 될때까지 반복하도록함
+반복할때 count 1을 증가시키고
+
+.sorted(by:>)를 이용해 오름차순 정렬한 뒤 arrays라는 배열을 만들어 저장
+
+for in 문을 이용해 arrays의 각 요소가 0 이면 zeroRemoveCount를 1증가시키고
+
+removeFiest()메서드를 이용해 첫요소를 지우도록함
+
+4. 이 후  arrays의 길이 .count 값을 arrayLength변수에 저장
+5. arrayLength를 2진수로 변환하기 위해  arrayLengthRemainder 배열을 선언
+ 
+6.arrayLength 를 2로 나누어서 0보다 클동안 반복하기 위해 while문 사용
+나머지값들은 arrayLengthRemainder에 .append 메서드를 이용하여 추가 
+
+7. 반복문을 빠져나오면 나머지 값 1을 더해줌
+8.reversed()메서드를 통해 배열을 뒤집어주면 "2진법으로 표현한 문자열"을 담은 배열이 됨 
+ 
+1이 될때까지 반복 후  count,zeroRemoveCount 리턴
+
+
+내코드
+ 
+
+import Foundation
+
+func solution(_ s:String) -> [Int] {
+     var array = s.map({Int(String($0))!})
+    var count = 0 // 몇번 반복
+    var zeroRemoveCount = 0 // 0삭제 횟수
+    
+    let result = [1] //결과값
+    
+    
+    while result != array{ //array랑 result가 같지 않을 동안
+        count += 1                   // 반복 1회 증가
+        var arrays = array.sorted(by:<)  // 00111
+        
+        for i in arrays{
+            if i == 0 {
+                zeroRemoveCount += 1
+                arrays.removeFirst()
+            }
+        }
+        
+        var arrayLength = arrays.count   //3개
+        
+        var arrayLengthRemainder = [Int]()  // 2로 나눈 나머지를 담을 배열
+        while arrayLength / 2 > 0 {
+            arrayLengthRemainder.append(arrayLength % 2)
+            arrayLength /= 2
+        }
+        arrayLengthRemainder.append(1)
+        
+        array = arrayLengthRemainder.reversed()
+        
+    }
+    
+    return [count,zeroRemoveCount]
+}

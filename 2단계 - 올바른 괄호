@@ -1,0 +1,79 @@
+풀이방법
+
+1. sArray 상수 생성 .map메서드를 이용해 s매개변수를 매핑 하여 문자열 배열을 만든 뒤 각 인덱스에 접근 할 수 있도록하였다. 
+
+let sArray = s.map({String($0)})
+
+
+2. sArray의 각 인덱스에 접근하여 "(" 이거나 ")" 일 경우 갯수를 카운팅할 수 있도록 변수를 선언해줌
+
+	var leftBracket = 0
+	var rightBracket = 0
+3. 첫글자가")" 이거나 마지막 글자가 "(" 면 false를 반환해야한다.
+
+EX) ")()()("
+
+if sArray[0] == ")" || sArray[sArray.count-1] == "("{
+        return ans
+    }
+
+
+4. ")"의 갯수가 "("의 갯수가보다 많아지는 순간 그것은 false로 반환해야한다 
+
+Ex) " ())(()"
+
+ for i in 0..<sArray.count{
+        if sArray[i] == "("{
+            leftBracket += 1
+        }else{
+            rightBracket += 1
+        }
+        if leftBracket < rightBracket{
+            return false
+        }
+    }
+5.  "("의 갯수와 ")"의 갯수가 총 같아야함
+
+EX) "()())"
+
+
+
+if leftBracket == rightBracket{
+        return true
+    }
+    
+    
+    
+    
+내 풀이 코드
+
+import Foundation
+
+func solution(_ s:String) -> Bool
+{
+    let ans:Bool = false
+    
+    let sArray = s.map({String($0)})
+    
+    var leftBracket = 0
+    var rightBracket = 0
+    
+    if sArray[0] == ")" || sArray[sArray.count-1] == "("{
+        return ans
+    }
+    
+    for i in 0..<sArray.count{
+        if sArray[i] == "("{
+            leftBracket += 1
+        }else{
+            rightBracket += 1
+        }
+        if leftBracket < rightBracket{
+            return false
+        }
+    }
+    if leftBracket == rightBracket{
+        return true
+    }
+    return ans
+}

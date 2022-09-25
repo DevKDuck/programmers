@@ -1,0 +1,46 @@
+나만의 풀이방법
+
+ 
+
+주어지는 sizes 매개변수의 2차원 배열은 [i,j]로 이루어진 1차원배열이 여러개가 묶여져 있는 형태이기에
+
+for in 반복문을 이용하여 접근하였다. 
+
+0 ~ (sizes의 갯수-1) 의 범위를 i에 접근하고
+
+[i][0], [i][1]을 비교하여 더 큰 수를 bigSize라는 배열에 담고 작은수를 smallSize 배열에 담게하였다.
+
+이유는 [i][0] 과 [i][1]은 각각 가로와 세로의 길이이다. 
+
+가로와 세로를 비교하여 큰수는 bigSize에 담고 작은수는 smallSize에 담는 셈이다.
+
+bigSize와 smallSize를 sorted() 메서드를 이용해 내림차순으로 정렬하고 width, height 라는 배열에 담은 뒤
+
+width, height의 0번째 인덱스를 곱하였다. 
+
+ 
+
+ 
+
+내 코드 
+
+import Foundation
+
+func solution(_ sizes:[[Int]]) -> Int {
+var bigSizes = [Int]()
+    var smallSizes = [Int]()
+    for i in 0..<sizes.count{
+        if sizes[i][0] > sizes[i][1]{
+            bigSizes.append(sizes[i][0])
+            smallSizes.append(sizes[i][1])
+        }else{
+            bigSizes.append(sizes[i][1])
+            smallSizes.append(sizes[i][0])
+        }
+    }
+        let width = bigSizes.sorted(by:>)
+        let height = smallSizes.sorted(by:>)
+    
+    
+    return width[0] * height[0]
+}

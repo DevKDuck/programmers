@@ -1,0 +1,71 @@
+내풀이방법
+
+ 
+
+1. map메서드와 for in 반복문을 이용해
+
+strings 배열에 있는 단어의 알파벳을 stringsArray라는 배열에 값에 넣음
+
+ 
+
+ 
+
+2.stringWord라는 문자열에 stringsArray[n]을 추가한뒤 for in 반복문을 이용하여 stringArray를 차례로 추가함
+
+ 
+
+n이 1일경우 
+
+["sun"] -> ["s","u","n"] ->  ["u","s","u","n"] -> usun 문자열이 됨 
+
+ 
+
+3. 이문자들을 sortedStringArray 배열에 추가 하고 .sorted 메서드를 이용해 오름차순으로 정렬함
+
+ 
+
+4. 다시 추가한 n번째 문자를 제거 해주기 위해
+
+sortedStringArray[i]를 매핑하여 stringArray에 저장하고 
+
+remove 메서드를 이용해 0번째 인덱스를 제거함
+
+ 
+
+이후 stringWord 문자열에 추가한뒤 result에 append메서드를 통해 추가하고 반환하였음
+
+ 
+
+ 
+
+내 코드 
+
+ 
+
+ 
+
+func solution(_ strings:[String], _ n:Int) -> [String] {
+    var result = [String]()
+    var sortedStringArray = [String]()
+
+    for i in 0..<strings.count{
+        let stringsArray = strings[i].map({String($0)})
+        var stringWord = ""
+        stringWord += stringsArray[n]
+        for j in 0..<stringsArray.count{
+            stringWord += stringsArray[j]
+        }
+        sortedStringArray.append(stringWord)
+    }
+    sortedStringArray = sortedStringArray.sorted(by: <)
+    
+    for i in 0..<sortedStringArray.count{
+        var stringArray = sortedStringArray[i].map({String($0)})
+        stringArray.remove(at: 0)
+        var stringWord = ""
+        for j in 0..<stringArray.count{
+            stringWord += stringArray[j]
+        }
+        result.append(stringWord)
+    }
+    return result

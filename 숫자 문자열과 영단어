@@ -1,0 +1,64 @@
+첫번째 풀이방법
+
+sArray에 s문자열을 한글자씩 인덱스에 받는 배열 매핑을 이용하여 초기화
+
+sArray안에 수가 oneToTenNUM안에 있으면 result에 추가하도록 하였고
+
+아닐경우 word에 추가하도록함
+
+ 
+
+word가 oneToTenENG의 수와 일치하면 result에 onToTenNUM[j]인덱스를 result에 추가하도록함
+
+이후 word의 문자를 빈문자열로 초기화를 해주어야함
+
+ 
+
+import Foundation
+
+func solution(_ s:String) -> Int {
+    let oneToTenENG = ["zero","one","two","three","four","five","six","seven","eight","nine"]
+    let oneToTenNUM = ["0","1","2","3","4","5","6","7","8","9"]
+    var result = ""
+    var word = ""
+    
+    let sArray = s.map({String($0)})
+    for i in 0..<sArray.count{
+        if oneToTenNUM.contains(sArray[i]){
+            result += sArray[i]
+        }else{
+            word += sArray[i]
+        }
+        
+        for j in 0..<oneToTenENG.count{
+            if word == oneToTenENG[j]{
+                result += oneToTenNUM[j]
+                word = ""
+            }
+        }
+        
+          }
+    
+    
+    return Int(result)!
+}
+ 
+
+두번째 풀이방법
+
+replacingOccurrences 메서드를 이용하였을 경우
+
+oneToTenENG에 있는 문자열을 i로 바꾸도록함
+
+import Foundation
+
+func solution(_ s:String) -> Int {
+    let oneToTenENG = ["zero","one","two","three","four","five","six","seven","eight","nine"]
+    var replace = s
+    for i in 0..<oneToTenENG.count{
+     replace = replace.replacingOccurrences(of: oneToTenENG[i], with: String(i))
+    }
+    
+    return Int(replace)!
+    
+}

@@ -1,0 +1,53 @@
+내 풀이 방법
+
+ 
+
+1. brown과 yellow를 더한값 sum 초기화
+
+2. 1부터 sum까지 반복하여 sum을 i로 나누었을때 나머지가 0인수들을 찾음
+
+brown이 10 yellow가 2일때 sum은 12임
+
+그러면 약수들 1,2,3,4,6,12에서 if조건문이 걸림
+
+이때  사각형의 특성 가로x세로를 생각해 x는 sum/i y는 i로 초기화해줌
+
+ 
+
+yellow는 brown으로 감싸져있기 때문에 
+
+x와 y축이 brown보다 -2 만큼씩 작음
+
+ 
+
+때문에 (x-2) * (y-2)가 yellow의 갯수와 같으면 
+
+break문을 이용해 x,y 값을 리턴하도록함  
+
+ 
+
+내 코드
+
+ 
+
+import Foundation
+
+func solution(_ brown:Int, _ yellow:Int) -> [Int] {
+    let sum = brown + yellow
+    var x = Int()
+    var y = Int()
+    
+    for i in 1...sum{
+        if sum % i == 0{
+            x = sum / i
+            y = i
+        
+        }
+        
+        if (x-2) * (y-2) == yellow{
+            break
+        }
+    }
+    
+    return [x,y]
+}

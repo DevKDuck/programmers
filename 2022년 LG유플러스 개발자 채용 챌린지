@@ -1,0 +1,60 @@
+1번 문제
+
+내풀이
+Int형 배열 arr을 map을 이용해서 문자열로 바꿔서 k에 저장함
+
+그것을 다시 map을 이용해서 각 요소들을 문자마다 배열에 저장하여 2차원 배열 sArray에 넣음 
+
+이것들을 각각 오름차순으로 정렬한 sorted 2차원 배열만듦 
+
+
+이sorted함수의 각 인덱스의 문자를 다시함쳐줌 word라는 문자열로 만들고 이를 append해서 
+1차원 배열 replaceS 배열에 넣음 
+
+
+set의 성질을 replcaeS의 요소들을 setS에 넣음 
+
+setS의 갯수를 반환하였음
+
+
+
+
+
+import Foundation
+
+
+func solution(_ arr:[Int]) -> Int {
+
+    
+    var setk:Set = Set<String>()
+    
+    
+    let k = arr.map({String($0)})
+    var sArray = [[String]]()
+    for i in 0..<k.count{
+        sArray.append(k[i].map({String($0)}))
+    }
+    
+    var sorteds = [[String]]()
+    for i in 0..<sArray.count{
+        sorteds.append(sArray[i].sorted(by: <))
+    }
+    
+    var replaceS = [String]()
+    for i in 0..<sorteds.count{
+        var word = ""
+        for j in 0..<sorteds[i].count{
+            word += sorteds[i][j]
+        }
+        replaceS.append(word)
+    }
+    
+    for i in 0..<replaceS.count{
+        setk.insert(replaceS[i])
+    }
+    
+    return setk.count
+    
+}
+
+solution([112,1814,121,1481,1184,1201])

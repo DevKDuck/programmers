@@ -1,0 +1,84 @@
+나만의 풀이 
+
+ 
+
+sheSayPossible 상수배열 선언 - 옹알이 할수 있는 문자열을 담았음 
+
+result 변수 0으로 초기화 - babbling 문자열 배열에서 옹알이할 수 있는 단어들의 갯수
+
+ 
+
+1. 주어진 babbling의 갯수만큼 반복한다. (주어진 단어들에 각각 접근)
+
+ 
+
+2.고차함수 .map을 통해 mapbabbling이라는 변수를 만들었음 
+
+= babbling의 각 단어를 문자 단위로 다시 쪼개어 문자열 배열로 저장하도록하였음 
+
+sum이라는 빈문자열 변수를 만들었음 
+
+indexNum이라는 -1로 변수를 초기화하였음(이유: 4번에서 설명)
+
+ 
+
+3. bubbling의 각 단어의 알파벳이 담긴 mapbabbling을 접근할것임
+
+반복문을 통해 sum에 mapbabbling의 각요소들을  순차적으로 더해줌
+
+ 
+
+4. sheSayPossible의 요소에 접근하기 위해 다시 한번 반복문을 구현해줌
+
+만약에 sum의 문자열이 sheSayPossibble에 있는 요소인 문자열과 같고 indexNum이 k와 다르다면  sum을 빈문자열로 만들고 indexNum을 k로 초기화하도록함 
+
+ 
+
+이때 "ayaaya" 는 같은 말을 연속해서 다시하는 것이기 때문에 불가능한 옹알이로 판단됨
+
+ k의 범위는 0~sheSayPossible-1이기 때문에
+
+음수는 절대 인덱스 범위에 포함되지 않기 때문에 맨처음 indexNum의 초기값을 -1로 주었고
+
+이후에 indexNum이 같지 않을 경우만 sum을 초기화하도록하였다. 
+
+ 
+
+5. i가 1씩 증가하는 반복문이 끝날때 sum이 빈문자열이라면 옹알이를 할 수 있는 뜻으로 result에 1을 더해주면 된다.
+
+ 
+
+ 
+
+ 
+내코드
+ 
+
+import Foundation
+
+func solution(_ babbling:[String]) -> Int {
+    
+    let sheSayPossible = ["aya", "ye", "woo", "ma"]
+    var result = 0
+    
+    for i in 0..<babbling.count{
+        var mapbabbling = babbling[i].map({String($0)})
+        var sum = ""
+        var indexNum = -1
+        for j in 0..<mapbabbling.count{
+            sum += mapbabbling[j]
+            for k in 0..<sheSayPossible.count{
+                if sum == sheSayPossible[k]{
+                    if indexNum != k{
+                        sum.removeAll()
+                        indexNum = k
+                    }
+                }
+            }
+        }
+        if sum == ""{
+            result += 1
+        }
+    }
+    return result
+}

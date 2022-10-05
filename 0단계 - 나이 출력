@@ -1,0 +1,15 @@
+ 
+
+내풀이
+
+2022년 에서 age를 뺌
+
+태어날떄부터 1살이기 때문에 +1
+
+
+내코드
+import Foundation
+
+func solution(_ age:Int) -> Int {
+    return 2022 - age + 1
+}

@@ -1,0 +1,25 @@
+if else 조건문을 통해 dot[0],[1]의 조건에 따라 값을 반환하였음 
+
+
+
+
+
+import Foundation
+
+func solution(_ dot:[Int]) -> Int {
+    
+    if dot[0] > 0 {           //dot[0]이 양수
+        if dot[1] > 0{        //dot[0]이 양수고 dot[1]이 양수면 1 반환
+            return 1
+        } 
+        else{
+            return 4          //dot[0]이 양수고 dot[1]이 음수면 4 반환         
+        }
+    }
+    else if dot[1] > 0{       //dot[0]이 음수고 dot[1]이 양수면 2 반환
+        return 2
+    }
+    else{
+        return 3              //dot[0]이 음수고 dot[1]이 음수면 3 반환
+    }
+}

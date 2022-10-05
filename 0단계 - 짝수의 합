@@ -1,0 +1,26 @@
+내풀이
+
+제한사항에 n의 범위가 0부터 1000까지 로 명시되어 있음
+
+ 
+
+0부터 n까지 for in 반복문
+
+반복물블록안에 2로 나누었을떄 0이 남는 수를 sum에 더하도록함 
+
+ 
+
+ 
+
+import Foundation
+
+func solution(_ n:Int) -> Int {
+    var sum = 0
+    
+    for i in 0...n{
+        if i % 2 == 0{
+            sum += i
+        }
+    }
+    return sum
+}

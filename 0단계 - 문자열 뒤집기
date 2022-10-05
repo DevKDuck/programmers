@@ -1,0 +1,16 @@
+내풀이방법
+
+reversed() 메서드를 이용해 문자열을 뒤집었다. \
+
+reversed메서드는 반환 타입이 ReversedCollection 타입이기 때문에 String으로 형변환하여 반환하였음 
+
+ 
+
+내 코드 
+ 
+
+import Foundation
+
+func solution(_ my_string:String) -> String {
+    return String(my_string.reversed())
+}

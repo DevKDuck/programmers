@@ -1,0 +1,13 @@
+내풀이
+
+ 
+
+삼항연산자를 이용해 참이면 1, 거짓이면 -1을 반환하도록 함 
+
+ 
+
+import Foundation
+
+func solution(_ num1:Int, _ num2:Int) -> Int {
+    return num1 == num2 ? 1 : -1
+}

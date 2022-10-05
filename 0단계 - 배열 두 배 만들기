@@ -1,0 +1,39 @@
+내 풀이 방법
+
+.map 고차함수를 이용해 데이터를 변형하여 반환
+
+ 
+
+ 
+
+import Foundation
+
+func solution(_ numbers:[Int]) -> [Int] {
+    
+    return numbers.map({Int(String($0))! * 2})
+}
+
+ 
+
+
+
+
+ 
+
+ 
+
+더 빠르고 정확한 방법은
+
+Int형 1차원 빈배열 result를 만들어서 append하는 방법이 있다. 
+
+import Foundation
+
+func solution(_ numbers:[Int]) -> [Int] {
+    
+    var result = [Int]()
+    for i in 0..<numbers.count{
+        result.append(numbers[i] * 2)
+    }
+    
+    return result 
+}

@@ -1,0 +1,21 @@
+for in 반복문으로 array 요소에 접근해
+
+Int형 파라미터 n과 일치하면 sum에 +1 하여 
+
+반복문이 끝난 후  반환
+
+ 
+ 내코드
+
+import Foundation
+
+func solution(_ array:[Int], _ n:Int) -> Int {
+    var sum = 0
+    for i in 0..<array.count{
+        if array[i] == n {
+            sum += 1
+        }
+    }
+    
+    return sum
+}

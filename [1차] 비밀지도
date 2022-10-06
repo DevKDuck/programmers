@@ -1,0 +1,93 @@
+변수 정보
+
+- answer = [String]() 
+
+출력값을 나타내는 String 배열
+
+ 
+
+-radixArr1 = [String]() ,radixArr2 = [String]()
+
+arr1,arr2 파라미터를 10진수에서 2진수로 변환하여 담을 String 배열 
+
+ 
+
+- plusZero = ""
+
+arr1과 arr2의 요소를 radix메서드를 이용하여 2진수로 변환하였을때 길이가 n보다 작을경우 앞에 0을 추가할 수 있도록 하는 문자열
+
+ex) n = 5 , 10진수 1  radix2 메서드 사용시 -> 2진수 1로 변환됨 앞에 0000을 붙이기 위해 plusZero 변수 사용
+
+ 
+
+- radixArr1Map = radixArr1[i].map{String($0)}, radixArr2Map = radixArr2[i].map{String($0)}
+
+2진수로 이루어진 radixArr1,radixArr2의 배열을 .map 고차함수를 이용하여 문자마다 요소를 갖도록 함
+
+ex) ["00011"] -> ["0", "0", "0", "1", "1"]
+
+ 
+
+radixArr1Map과 radixArr2Map  인덱스들을 순차적으로 비교하여
+
+하나라도 1이 있으면 #, 이외에는 공백을 result에 추가하여  answer에 append하여 반환하였음  
+
+ 
+ 
+ 
+ 내코드
+ 
+
+func solution(_ n:Int, _ arr1:[Int], _ arr2:[Int]) -> [String] {
+    var answer: [String] = []
+    
+    var radixArr1 = [String]()
+    var radixArr2 = [String]()
+    for i in 0..<arr1.count{
+        var plusZero = ""
+        radixArr1.append(String(arr1[i],radix: 2))
+        if radixArr1[i].count != n{
+            for j in 1...n - radixArr1[i].count{
+                plusZero += "0"
+            }
+            plusZero = plusZero + radixArr1[i]
+            radixArr1.removeLast()
+            radixArr1.append(plusZero)
+            
+        }
+    }
+    
+    for i in 0..<arr2.count{
+        var plusZero = ""
+        radixArr2.append(String(arr2[i],radix: 2))
+        if radixArr2[i].count != n{
+            for j in 1...n - radixArr2[i].count{
+                plusZero += "0"
+            }
+            plusZero = plusZero + radixArr2[i]
+            radixArr2.removeLast()
+            radixArr2.append(plusZero)
+        }
+    }
+    
+
+    
+    for i in 0..<radixArr1.count{
+        var result = ""
+        var radixArr1Map = radixArr1[i].map{String($0)}
+        var radixArr2Map = radixArr2[i].map{String($0)}
+        
+        for j in 0..<radixArr1Map.count{
+            if radixArr1Map[j] == "1" || radixArr2Map[j] == "1" {
+                result += "#"
+            }else{
+                result += " "
+            }
+        }
+        answer.append(result)
+    }
+    
+    
+  
+    return answer
+}

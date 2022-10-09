@@ -1,0 +1,60 @@
+변수,상수 정리
+
+sortedStages - stages를 내림차순으로 정렬
+
+array - stage별 실패하는 인원 수 
+
+dic - key 값은 level,  value 값은 실패한 인원 수 
+
+level - 각 stage마다 실패한 인원 수
+
+people - 도전한 사람 수 
+
+sorteddic - dic 딕셔너리의 key를 내림차순으로 정렬하고, value를 오름차순으로 정렬한 딕셔너리 
+
+result = sorteddic의 key값을 매핑하여 Int형 배열에 담음 
+
+ 
+
+ 
+
+import Foundation
+
+func solution(_ N:Int, _ stages:[Int]) -> [Int] {
+
+
+    var sortedStages = stages.sorted(by: <)
+    var array = [Int]()
+    var dic: [Int:Double] = [:]
+
+    for i in 1...N{
+        var level = 0
+        for j in 0..<sortedStages.count{
+            if i == sortedStages[j] { 
+                level += 1
+            } //level과 stage가 일치하면 level +1
+        }
+        if level == 0 {            //array의 인덱스에 맞게 멈춰 있는인원을 맞추기위해 level이 0일 경우 0추가 
+            array.append(0)
+        }else{
+            array.append(level)   //아닐경우 level(멈춰있는 인원 추가)
+        }
+    }
+
+    var people = stages.count      
+    for i in 0..<array.count{
+        dic[i+1] = (Double(array[i]) / Double(people))   
+        people -= array[i]
+    }
+    //dic key값에 단계, value에 실패율추가, people은 단계가 지날수록 전단계 인원들을 빼야함
+    
+    let sorteddic = dic.sorted(by: <).sorted(by: {$0.value > $1.value})
+    
+    //key 내림차순정렬 , value 오름차순 정렬 
+
+    let result = sorteddic.map({$0.key})
+    
+    //key값만 매핑하여 Int형 배열에  담음
+    return result
+}
+ 

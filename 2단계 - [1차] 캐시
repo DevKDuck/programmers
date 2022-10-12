@@ -1,0 +1,156 @@
+풀이방법
+
+캐시 교체 알고리즘이 LRU라고 조건에 쓰여있음
+
+ 
+
+LRU : 가장 오랫동안 참조되지 않은 페이지를 교체
+
+단점 : 프로세스가 주기억장치에 접근할 때
+
+마다 참조된 페이지에 대한 시간을 기록해야함. 큰 오버헤드가 발생
+
+ 
+
+ 
+
+변수 설정
+
+ 
+
+cache 배열 변수 
+
+- 도시이름을 받을 캐시 배열
+
+ 
+
+cache Count
+
+hit일때 1증가 miss일때 5증가하는 변수, 0으로 초기화
+
+ 
+
+ 
+
+cacheSize는 캐시의 최대 용량으로 생각하면 되고 ,
+
+cities배열에 접근해 cacheSize 크기만큼 도시들을 담을 수 있음
+
+이때 cache에 이미 있는 도시이면 cache hit 로 1증가,cashe miss(없는 도시)일 경우 5가 증가하게 됨  
+
+ 
+
+ 
+
+ 
+
+ 
+
+처음 푼 코드
+1. cacheSize 가 0이면 모든 cities요소들이 cashe miss로 5씩증가하여 반환함
+
+2. casheSize보다 i가 작으면 cache배열에 추가하도록하였음 
+
+3. cities의 문자열 요소중 대소문자가 달라도 같은 도시로 판별해야하기때문에 lowercased로 변환하여 cache에 추가함
+
+ 
+
+4. i가 cacheSize랑 같고
+
+cashe배열에 cities의 요소를 가지고 있으면 앞에 요소중에 같은 요소를 제거하도록함
+
+그리고 cities[i]를 배열에 추가한뒤 count를 1증가시킴
+
+ 
+
+5. 요소를 가지고 있지않을 경우
+
+cashe의 첫요소를 없애고 cities[i]를 배열에 추가한뒤 count를 5증가시킴
+
+ 
+
+11,16,19,20 에러가 남 .... 
+
+ 
+
+
+
+ 
+
+ 
+
+ 
+
+ 
+
+func solution(_ cacheSize:Int, _ cities:[String]) -> Int {
+    var cache = [String]()
+    var cacheCount = 0
+    
+    if cacheSize == 0 {
+        cacheCount = cities.count * 5
+        return cacheCount
+    }
+    
+    for i in 0..<cities.count{
+        
+        if i < cacheSize {
+            cache.append(cities[i].lowercased())
+            cacheCount += 5
+        }
+        else if cache.contains(cities[i].lowercased()){
+            cache.remove(at: cache.firstIndex(of: cities[i].lowercased())!)
+            cache.append(cities[i].lowercased())
+            cacheCount += 1
+            
+        }
+        else{
+            cache.removeFirst()
+            cache.append(cities[i].lowercased())
+            cacheCount += 5
+        }
+    }
+    return cacheCount
+}
+ 
+
+
+정답
+
+나만의 풀이 
+
+문자열이 하나 담겨 cache에 같은 문자열을 비교할때 cacheSize가 가득차지 않아도 같으면 없애고 추가해야 함   
+
+import Foundation
+
+func solution(_ cacheSize:Int, _ cities:[String]) -> Int {
+    var cache = [String]()
+    var cacheCount = 0
+    
+    if cacheSize == 0 {
+        cacheCount = cities.count * 5
+        return cacheCount
+    }
+    
+    for i in 0..<cities.count{
+        if cache.contains(cities[i].lowercased()){
+            cache.remove(at: cache.firstIndex(of: cities[i].lowercased())!)
+            cache.append(cities[i].lowercased())
+            cacheCount += 1
+            
+        }else{
+            if cache.count == cacheSize{
+                cache.removeFirst()
+                cache.append(cities[i].lowercased())
+                cacheCount += 5
+            }else{
+                cache.append(cities[i].lowercased())
+                cacheCount += 5
+            }
+            
+            
+        }
+        
+    }
+    return cacheCount
+}

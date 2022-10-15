@@ -1,0 +1,36 @@
+
+
+내코드 
+import Foundation
+
+func solution(source:String)-> String{
+    
+    var dest = ""
+    var sourceArray = source.map({String($0)})
+    var sortedArray = [String]()
+    var containArray = [String]()
+    
+    
+    while !sourceArray.isEmpty{
+        for i in 0..<sourceArray.count{
+            if !sortedArray.contains(sourceArray[i]){
+                sortedArray.append(sourceArray[i])
+            }else{
+                containArray.append(sourceArray[i])
+            }
+        }
+        sourceArray = containArray
+        
+        var sortedArray2 = sortedArray.sorted(by: <)
+        
+        for i in 0..<sortedArray2.count{
+            dest += sortedArray2[i]
+        }
+        containArray.removeAll()
+        sortedArray.removeAll()
+
+    
+    }
+    
+    return dest
+}

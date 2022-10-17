@@ -1,0 +1,62 @@
+3,9,10,11,14,15,20,21  시간초과 에러
+
+
+import Foundation
+
+func solution(_ id_list:[String], _ report:[String], _ k:Int) -> [Int] {
+
+    var sameRemovereport = [String]()
+
+    for i in 0..<report.count{
+        if !sameRemovereport.contains(report[i]){
+            sameRemovereport.append(report[i])
+        }
+    }
+
+    var result = Array(repeating: 0, count: id_list.count)
+    var idlistCount = Array(repeating: 0, count: id_list.count)
+
+    var reporterArray = [String]()
+    var criminalArray = [String]()
+
+
+    for i in 0..<sameRemovereport.count{
+        var mapi = sameRemovereport[i].map({String($0)})
+        var mapiIndex = 0
+        var reporter = ""
+        while mapi[mapiIndex] != " "{
+            reporter += mapi[mapiIndex]
+            mapiIndex += 1
+        }
+        reporterArray.append(reporter)
+        var criminal = ""
+        for j in mapiIndex+1..<mapi.count{
+            criminal += mapi[j]
+        }
+        criminalArray.append(criminal)
+    }
+
+    for i in 0..<criminalArray.count{
+        for j in 0..<id_list.count{
+            if criminalArray[i] == id_list[j]{
+                idlistCount[j] += 1
+            }
+        }
+    }
+
+    for i in 0..<idlistCount.count{
+        if idlistCount[i] >= k{
+            for j in 0..<criminalArray.count{
+                if criminalArray[j] == id_list[i]{
+                    for p in 0..<id_list.count{
+                        if reporterArray[j] == id_list[p]{
+                            result[p] += 1
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return result
+}

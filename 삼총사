@@ -1,0 +1,31 @@
+나만의 풀이방법
+
+반복문을 이용해 서로 겹치지 않는 구간에서 값을 더했을때 1일경우 count 변수가 1씩 증가하도록 하여 반환하도록 함
+
+ 
+
+number 파라미터가 [1,2,3,4,5,6,7,8,9,10] 일경우 
+
+ 
+
+i범위 -  1부터 8까지
+
+j범위 - i+1부터 9까지 
+
+p범위 - j+1부터 10까지
+
+import Foundation
+
+func solution(_ number:[Int]) -> Int {
+    var count = 0
+    for i in 0..<number.count-2{
+        for j in i+1..<number.count-1{
+           for p in j+1..<number.count{
+               if number[i] + number[j] + number[p] == 0 {
+                   count += 1
+               }
+           }
+        }
+    }
+    return count
+}

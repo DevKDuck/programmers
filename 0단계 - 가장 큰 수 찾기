@@ -1,0 +1,14 @@
+나만의 풀이 방법
+
+for in 반복문을 통해 array 의 요소에 접근해 .max()메서드로  최대값과 비교한뒤 리턴
+
+import Foundation
+
+func solution(_ array:[Int]) -> [Int] {
+    for i in 0..<array.count{
+        if array[i] == array.max(){
+            return [array[i],i]
+        }
+    }
+    return array
+}

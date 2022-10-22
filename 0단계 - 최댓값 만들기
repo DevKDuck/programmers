@@ -1,0 +1,6 @@
+import Foundation
+
+func solution(_ numbers:[Int]) -> Int {
+    var sortednumbers = numbers.sorted(by: >)
+    return sortednumbers[0] * sortednumbers[1]
+}

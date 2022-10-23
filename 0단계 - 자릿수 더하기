@@ -1,0 +1,22 @@
+풀이방법
+
+n을 문자열 타입으로 변환하여 stringN이라는 변수로 저장
+
+map고차함수 메서드를 이용하여 String으로 각 문자를 배열에 담고 Int형으로 변환하여 옵셔널 타입으로 해제시켜줌
+
+arrayn에 하나씩 접근해서 sum에 더하여 반환 
+
+import Foundation
+
+func solution(_ n:Int) -> Int {
+    
+    var stringN = String(n)
+    var arrayn = stringN.map{Int(String($0))!}
+    var sum = 0
+    
+    for i in arrayn{
+         sum += i
+    }
+    
+    return sum
+}

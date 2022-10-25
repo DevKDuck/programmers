@@ -1,0 +1,12 @@
+코드
+import Foundation
+
+func solution(_ num_list:[Int]) -> [Int] {
+    
+    return num_list.reversed()
+}
+
+풀이
+reversed() 메서드를 이용해 배열 뒤집음 
+
+시간복잡도 O(1)

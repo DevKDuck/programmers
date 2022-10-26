@@ -1,0 +1,12 @@
+import Foundation
+
+func solution(_ strlist:[String]) -> [Int] {
+    var result = [Int]()
+    
+    for i in 0..<strlist.count{
+        result.append(strlist[i].count)
+    }
+
+    return result
+}
+.count를 이용하여 문자열의 길이를 얻어 result 배열에 .append로 추가

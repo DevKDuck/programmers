@@ -1,0 +1,17 @@
+풀이방법
+
+사람(n)의 범위가 1~100이기 때문에 pizza는 무조건 1판이상임
+whlie 반복문으로 사람(n)이 조각(slice)보다 크다면 pizza를 한판 추가하고 사람을(n) 피자조각(slice)만큼 빼버림
+import Foundation
+
+func solution(_ slice:Int, _ n:Int) -> Int {
+    
+    var pizza = 1
+    var n = n
+    
+    while slice < n{
+        pizza += 1
+        n -= slice
+    }
+    return pizza
+}

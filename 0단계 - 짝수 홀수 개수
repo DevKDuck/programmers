@@ -1,0 +1,16 @@
+import Foundation
+
+func solution(_ num_list:[Int]) -> [Int] {
+
+    var countJJAK = 0
+    var countHol = 0 
+    
+    for i in num_list{
+        if i % 2 == 0{
+            countJJAK += 1
+        }else{
+            countHol += 1
+        }
+    }
+    return [countJJAK, countHol]
+}

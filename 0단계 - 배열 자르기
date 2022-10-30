@@ -1,0 +1,20 @@
+첫번째 코드 
+import Foundation
+
+func solution(_ numbers:[Int], _ num1:Int, _ num2:Int) -> [Int] {
+    
+    var answer = [Int]()
+    
+    for i in num1...num2{
+        answer.append(numbers[i])
+    }
+    return answer
+}
+
+
+
+두번째 코드 
+
+func solution(_numbers: [Int], _ num1: Int, _ num2: Int) -> Int{
+	return Array(numbers[num1...num2])
+}

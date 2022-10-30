@@ -1,0 +1,70 @@
+초기값이 n인 divideN을 생성
+배터리 사용량 useBattery 변수 생성
+나만의 풀이 방법)
+
+순간이동을 하면 배터리를 사용하지 않고 이동한 현재 자리 x 2인 곳에 순간이동할 수 있음
+
+이 말은 divideN을 2로 나누어 나머지가 없는 짝수일 경우는 텔레포트를 타고
+
+홀수면? 점프해서 배터리를 사용하라는 소리임
+
+ 
+
+최종 도착지에 도달할 때까지 반복해야하므로 divideN이 0이 아닐동안 while문을 이용해 반복함
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+처음에 푼 코드
+효율성 테스트 4번 실행초과가 뜸
+바꾼점- divideN이 짝수든 홀수든 어쨋든 2로 나눈 몫은 -1을 하기 전과 같음
+
+때문에 if else 문으로 조건을 구분하지 않고 홀수 일경우 배터리를 +1을 해주고 2로 나눠주면 됨
+
+import Foundation
+
+func solution(_ n:Int) -> Int 
+{
+    var divideN = n
+    var useBattery = 0
+    
+    while divideN != 0{
+        if divideN % 2 == 0{
+            divideN /= 2
+        }else{
+            divideN -= 1
+            useBattery += 1
+        }
+    }
+    
+    return useBattery
+}
+ 
+
+ 
+
+ 
+
+개선한 코드
+import Foundation
+
+func solution(_ n:Int) -> Int 
+{
+    var divideN = n
+    var useBattery = 0
+    
+    while divideN != 0{
+        if divideN % 2 != 0{
+            useBattery += 1
+        }
+          divideN /= 2
+    }
+    return useBattery
+}

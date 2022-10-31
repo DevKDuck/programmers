@@ -1,0 +1,62 @@
+변수
+people - 경기를 할때마다 총 인원
+a2 - a가 경기를 올라갈때마다 몇번째에 경기를 하는지 나타내는 변수
+b2 - b가 경기를 올라갈때마다 몇번째에 경기를 하는지 나타내는 변수
+count - 무조건 1번은 시합을 해야 만나든 말든 할 것 아님 그래서 초기값 1
+ 
+
+나만의 풀이 방법
+
+1. 사람이 2명남은 결승전까지 while문을 통해 반복함
+
+ 
+
+2. a2나 b2가 짝수일 경우는 2로 나눈 몫을 통해 몇번째에 시합하는지 알 수 있음
+
+홀수일 경우 2로 나눈 몫에 1을 더해주어 확인 할 수 있음 
+
+ 
+
+3. a2와 b2가 같을 경우는 시합을 하는 경우임 이때 count 를 반환
+
+아닐경우 count를 증가시키고 people을 반으로 줄여줌
+
+
+
+
+
+
+
+
+
+
+내코드
+import Foundation
+
+func solution(_ n:Int, _ a:Int, _ b:Int) -> Int
+{
+    var people = n
+    var a2 = a
+    var b2 = b
+    var count = 1
+    
+    while people >= 2{
+        if a2 % 2 == 0{
+            a2 /= 2
+        }else{
+            a2 = a2 / 2 + 1
+        }
+        if b2 % 2 == 0{
+            b2 /= 2
+        }else{
+            b2 = b2 / 2 + 1
+        }
+        
+        if a2 == b2{
+            return count
+        }
+        count += 1
+        people /= 2
+    }
+    return 0
+}

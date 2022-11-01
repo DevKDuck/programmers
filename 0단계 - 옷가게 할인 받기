@@ -1,0 +1,17 @@
+import Foundation
+
+func solution(_ price:Int) -> Int {
+    var answer = Double(price)
+    switch price{
+case 0..<100000:
+        return price
+        case 100000..<300000:
+        return Int(answer * 0.95)
+           case 300000..<500000:
+        return Int(answer * 0.9)
+          default:
+        return Int(answer * 0.8)
+       
+        
+}
+}

@@ -1,0 +1,79 @@
+변수 선언
+
+result : 이중우선순위큐
+maxDelete: operations의 요소가 D 1이면 최댓값을 제거해야 함으로 D 1과 비교할 수 있도록 하는 상수
+minDelete: operations의 요소가 D -1이면 최솟값을 제거해야 함으로 D -1과 비교할 수 있도록 하는 상수
+array: opeations의 요소를 map메서드를 이용하여 한글자씩 매핑하는 문자열배열
+num: String형 빈문자열로 array에 0번째 인덱스가 I이면 이중우선순위 큐에 더하야 하는 수임 따라서 2번째 인덱스부터 마지막인덱스까지 문자를 더한 변수
+answer: result가 비어 있지 않다면 이중우선순위 큐의 최댓값과 최솟값을 가지는 배열
+ 
+
+내 풀이
+
+operations에 접근하여 요소들을 .map 메서드를 이용해 한글자씩 문자열로 만들어 array에 넣어버림
+
+ 
+
+이떄 array에 첫번째 글짜 즉 0 번쨰 인덱스가 I면 큐에 숫자를 추가해야함
+
+근데 이 숫자는 인덱스가 2번째부터 마지막 인덱스까지임
+
+ 
+
+빈문자열 num에 계속 더하고 반복문이 끝난 뒤 num이 빈문자열이 아니라면 result에 Int형으로 추가해버리면 됨
+
+ 
+
+최댓값과 최솟값을 지우는 maxDelete,minDelete과 같고 
+
+result 배열이 비어있지 않다면 오름차순 정렬을 통해 맨앞이나 맨뒤를 제거해줌
+
+ 
+
+모든 반복문이 끝나고 result가 빈배열이 아니라면 answer에 result의 최댓값과 최솟값을 차례로 추가함
+
+삼항연산자를 이용해 result가 비어있다면 [0,0] 비어있지 않다면 answer을 반환하도록함
+
+
+
+
+
+
+
+
+내 코드 
+func solution(_ operations:[String]) -> [Int] {
+    
+    var result = [Int]()
+    let maxDelete = ["D", " ", "1"]
+    let minDelete = ["D", " ", "-", "1"]
+    for i in 0..<operations.count{
+        var array = operations[i].map{String($0)}
+        var num = ""
+        if array[0] == "I"{
+            for i in 2..<array.count{
+                num += array[i]
+            }
+        }
+        else if array == maxDelete && !result.isEmpty{
+            result = result.sorted(by: <)
+            result.removeLast()
+        }
+        else if array == minDelete && !result.isEmpty{
+            result = result.sorted(by: <)
+            result.removeFirst()
+        }
+        
+        if !num.isEmpty{
+            result.append(Int(num)!)
+        }
+    }
+    
+    var answer = [Int]()
+    if !result.isEmpty {
+        answer.append(result.max()!)
+        answer.append(result.min()!)
+    }
+    
+    return result.isEmpty ? [0,0] : answer
+}

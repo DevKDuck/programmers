@@ -1,0 +1,42 @@
+import Foundation
+
+func solution(_ s:String) -> Int {
+ 
+    var mappingS = s.map{String($0)}
+    var openBracketArray = [String]()
+    var closeBracketArray = [String]()
+    var count = 0
+    
+    let openBracket = ["(","{","["]
+    let closeBracket = [")","}","]"]
+    let bracket = ["()","{}","[]"]
+    
+    var n = 0
+    
+    
+    while n != s.count{
+        for i in 0..<mappingS.count{
+            if openBracket.contains(mappingS[i]){
+                openBracketArray.append(mappingS[i])
+            }else{
+                closeBracketArray.append(mappingS[i])
+                if !openBracketArray.isEmpty && bracket.contains(openBracketArray.last! + mappingS[i]){
+                    openBracketArray.removeLast()
+                    closeBracketArray.removeFirst()
+                }
+            }
+        }
+        
+        mappingS.append(mappingS[0])
+        mappingS.removeFirst()
+        
+        if openBracketArray.isEmpty && closeBracketArray.isEmpty{
+            count += 1
+        }
+        openBracketArray.removeAll()
+        closeBracketArray.removeAll()
+        n += 1
+    }
+    
+    return count
+}

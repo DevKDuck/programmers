@@ -1,0 +1,44 @@
+import Foundation
+
+func solution(_ progresses:[Int], _ speeds:[Int]) -> [Int] {
+    
+    var remainder = [Int]()
+    var needDay = [Int]()
+    var result = [Int]()
+    
+    
+    for i in 0..<progresses.count{
+        remainder.append(100 - progresses[i])
+    }
+    
+    for i in 0..<remainder.count{
+        if remainder[i] % speeds[i] == 0{
+            needDay.append(remainder[i] / speeds[i])
+        }else{
+            needDay.append(remainder[i] / speeds[i] + 1)
+        }
+    }
+    
+    var max = 0
+    var count = 0
+    for i in 0..<needDay.count{
+        if i == 0{
+            max = needDay[i]
+            count = 1
+        }
+        else if max < needDay[i]{
+            result.append(count)
+            max = needDay[i]
+            count = 1
+            
+        }
+        else{
+            count += 1
+        }
+        if i == needDay.count-1 && max >= needDay[i]{
+        
+            result.append(count)
+        }
+    }
+    return result
+}

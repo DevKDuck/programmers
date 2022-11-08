@@ -1,0 +1,51 @@
+import Foundation
+
+func solution(_ answers:[Int]) -> [Int] {
+    
+    
+    var people1 = [1,2,3,4,5]
+    var people2 = [2,1,2,3,2,4,2,5]
+    var people3 = [3,3,1,1,2,2,4,4,5,5]
+    
+    var count = [1:0, 2:0, 3:0]
+    
+    
+    if answers.count <= people1.count{
+        for i in 0..<answers.count{
+            if answers[i] == people1[i]{
+                count[1]! += 1
+            }
+            if answers[i] == people2[i]{
+                count[2]! += 1
+            }
+            if answers[i] == people3[i]{
+                count[3]! += 1
+            }
+        }
+    }
+    else{
+        while people1.count < answers.count{
+            people1 += people1
+        }
+        while people2.count < answers.count{
+            people2 += people2
+        }
+        while people3.count < answers.count{
+            people3 += people3
+        }
+        for i in 0..<answers.count{
+            if answers[i] == people1[i]{
+                count[1]! += 1
+            }
+            if answers[i] == people2[i]{
+                count[2]! += 1
+            }
+            if answers[i] == people3[i]{
+                count[3]! += 1
+            }
+        }
+    }
+
+        
+    return count.filter{$0.value == count.values.max()}.keys.sorted()
+}

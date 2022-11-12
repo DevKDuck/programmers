@@ -1,0 +1,57 @@
+import Foundation
+
+func solution(_ record:[String]) -> [String] {
+    
+    var situation = [String]()
+    var userID = [String]()
+    var nickName = [String]()
+    var dic: [String : String] = [:]
+    
+    for i in 0..<record.count{
+        let element = record[i].map{String($0)} 
+        var str = ""
+        var space = 0
+        var id = ""
+
+        for j in 0..<element.count{
+            if element[j] == " "{
+                if space == 0{
+                    situation.append(str)
+                    str = ""
+                    space += 1
+                }
+                else{
+                    userID.append(str)
+                    id = str
+                    str = ""
+                    space += 1
+                }
+            }
+            else{
+                str += element[j]
+                if j == element.count - 1{
+                    if space == 2{
+                        nickName.append(str)
+                        dic[id] = str
+                        str = ""
+                    }
+                    else{
+                        userID.append(str)
+                    }
+                }
+            }
+        }
+    }
+    
+    var result = [String]()
+    for i in 0..<situation.count{
+        if situation[i] == "Enter"{
+            result.append(dic[userID[i]]! + "님이 들어왔습니다.")
+        }
+        if situation[i] == "Leave"{
+            result.append(dic[userID[i]]! + "님이 나갔습니다.")
+        }
+    }
+
+    return result
+}

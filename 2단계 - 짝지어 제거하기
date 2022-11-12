@@ -1,0 +1,20 @@
+
+func solution(_ s:String) -> Int{
+    if s.count%2 == 0 && s.count != 0{
+        var stack = [Character]()
+        for c in s {
+            if stack.isEmpty {
+                stack.append(c)
+            }else {
+                if stack.last! == c{
+                stack.removeLast()
+            }else{
+                stack.append(c)
+            }
+            }
+        }
+        return stack.isEmpty ? 1 : 0
+    }else{
+        return 0
+    }
+}

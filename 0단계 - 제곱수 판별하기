@@ -1,0 +1,10 @@
+import Foundation
+
+func solution(_ n:Int) -> Int {
+ 
+    var array = [Int]()
+    for i in 1...1000{
+        array.append(i*i)
+    }
+    return array.contains(n) ? 1 : 2
+}

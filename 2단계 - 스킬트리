@@ -1,0 +1,29 @@
+import Foundation
+
+func solution(_ skill:String, _ skill_trees:[String]) -> Int {
+    
+    let skillArray = skill.map({String($0)})
+    var count = 0
+    
+    for i in skill_trees{
+        let skill_treesArray = i.map({String($0)})
+        var skillstack = [String]()
+        var equal = 0
+        for j in 0..<skill_treesArray.count{
+            for k in 0..<skillArray.count{
+                if skill_treesArray[j] == skillArray[k]{
+                    skillstack.append(skill_treesArray[j])
+                }
+            }
+        }
+        for p in 0..<skillstack.count{
+            if skillArray[p] == skillstack[p]{
+                equal += 1
+            }
+        }
+        if skillstack.count == equal{
+            count += 1
+        }   
+    }
+    return count
+}

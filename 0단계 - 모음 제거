@@ -1,0 +1,13 @@
+import Foundation
+
+func solution(_ my_string:String) -> String {
+    
+    var result = ""
+    let vowel = ["a","e","i","o","u"]
+    for i in my_string{
+        if !vowel.contains(String(i)) {
+            result += String(i)
+        }
+    }
+    return result
+}

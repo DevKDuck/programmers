@@ -1,0 +1,52 @@
+func solution(_ str1:String, _ str2:String) -> Int {
+    let alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+    let str1 = str1.map{String($0)}
+    let str2 = str2.map{String($0)}
+    
+    var str1Array = [String]()
+    var str2Array = [String]()
+    
+    for i in 0..<str1.count-1{
+        if alphabet.contains(str1[i].uppercased()) && alphabet.contains(str1[i+1].uppercased()){
+            str1Array.append(str1[i].uppercased() + str1[i+1].uppercased())
+        }    }
+        
+    for i in 0..<str2.count-1{
+        if alphabet.contains(str2[i].uppercased()) && alphabet.contains(str2[i+1].uppercased()){
+            str2Array.append(str2[i].uppercased() + str2[i+1].uppercased())
+        }
+    }
+
+    if str1Array.sorted(by:<) == str2Array.sorted(by:<) {
+        return 65536
+    }
+    
+    var intersectionArray = [String]()
+    var indexArray = [Int]()
+    
+    for i in 0..<str1Array.count{
+        var count = 0
+        for j in 0..<str2Array.count{
+            if str1Array[i] == str2Array[j] && count == 0 && !indexArray.contains(j){
+                intersectionArray.append(str1Array[i])
+                count += 1
+                indexArray.append(j)
+            }
+        }
+    }    
+    
+    var unionArray = str1Array + str2Array    
+    
+    for i in 0..<intersectionArray.count{
+        if let firstIndex = unionArray.firstIndex(of: intersectionArray[i]){
+            unionArray.remove(at: firstIndex)
+        }
+    }
+    
+    let intersection = intersectionArray.count
+    let union = unionArray.count 
+    
+    let answer:Double =  Double(intersection) / Double(union) * 65536
+    
+    return Int(answer)
+}

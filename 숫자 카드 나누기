@@ -1,0 +1,47 @@
+import Foundation
+
+func solution(_ arrayA:[Int], _ arrayB:[Int]) -> Int {
+    
+    let sumArray = arrayA + arrayB
+    var sumMin = 0
+    
+    if arrayA.min()! > arrayB.min()!{
+        sumMin = arrayA.min()!
+    }
+    else{
+        sumMin = arrayB.min()!
+    }
+    
+    for i in stride(from: sumMin, to: 0, by: -1){
+        var countA = 0
+        var countB = 0
+        var countNoA = 0
+        var countNoB = 0
+        
+        for j in 0..<sumArray.count{
+            if j <= arrayA.count-1 {
+                if sumArray[j] % i == 0{
+                    countA += 1
+                }
+                else{
+                    countNoA += 1
+                }
+            }
+            else{
+                if sumArray[j] % i != 0{
+                    countNoB += 1
+                }
+                else{
+                    countB += 1
+                }
+            }
+        }
+        if (countA == arrayA.count && countNoB == arrayB.count) || (countB == arrayB.count && countNoA == arrayA.count){
+            return i
+        }
+        
+        
+    }
+ 
+    return 0
+}

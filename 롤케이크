@@ -1,0 +1,31 @@
+import Foundation
+
+func solution(_ topping:[Int]) -> Int {
+   
+    var result = 0
+    var chulsu: Set = Set<Int>()
+    var brother: Set<Int> = Set(topping)
+    
+    let toppingMaxNum = topping.max()!
+    var eachToppingArray = Array(repeating: 0, count: toppingMaxNum)
+    
+    for i in 0..<topping.count{
+        eachToppingArray[topping[i]-1] = eachToppingArray[topping[i]-1] + 1
+    }
+    
+    for i in 0..<topping.count-1{
+        chulsu.insert(topping[i])
+        eachToppingArray[topping[i]-1] = eachToppingArray[topping[i]-1] - 1
+        
+        if eachToppingArray[topping[i]-1] == 0 {
+            brother.remove(topping[i])
+        }
+        
+        if chulsu.count == brother.count{
+            result += 1
+        }
+    }
+
+
+    return result
+}

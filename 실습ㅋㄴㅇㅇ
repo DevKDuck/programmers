@@ -1,0 +1,53 @@
+import Foundation
+
+func solution(_ paths:[[Int]]) -> [Int]{
+    
+    var left = [Int]()
+    var right = [Int]()
+    var result = [Int]()
+    
+    for i in 0..<paths.count{
+        if paths[i][0] < paths[i][1]{
+            left.append(paths[i][0])
+            left.append(paths[i][1])
+        }else{
+            right.append(paths[i][0])
+            right.append(paths[i][1])
+        }
+    }
+    left = left.sorted(by: <)
+    right = right.sorted(by: >)
+    
+    
+
+    var leftArray = Array(repeating: 0, count: left.max()!)
+    for i in 0..<left.count{
+        leftArray[left[i]-1] += 1
+    }
+    for i in 0..<leftArray.count{
+        if leftArray[i] == 1{
+            result.append(i+1)
+        }
+    }
+    var rightArray = Array(repeating: 0, count: right.max()!)
+    
+    for i in 0..<right.count{
+        rightArray[right[i]-1] += 1
+    }
+    
+    var reverseArray = [Int]()
+    for i in 0..<rightArray.count{
+        if rightArray[i] == 1{
+            reverseArray.append(i+1)
+        }
+    }
+    
+    for i in reverseArray.reversed(){
+        result.append(i)
+    }
+    
+    return []
+}
+
+solution([[1,2],[2,3],[3,4],[8,7],[7,6]])
+solution([[1,2],[4,5],[10,9],[3,4]])

@@ -1,0 +1,55 @@
+
+
+import Foundation
+
+func solution(_ emails:[String]) -> Int{
+    var result = 0
+    let alphabet = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+    let topLevelDomain = ["com","net","org"]
+
+
+    for i in 0..<emails.count{
+        
+        
+        var emailsArray = emails[i].map{String($0)}
+        var firstGoalIndex = emailsArray.firstIndex(of: "@")!
+        var lastdotIndex = emailsArray.lastIndex(of: ".")!
+        var name = ""
+        var domain = ""
+        var topDomain = ""
+        
+        for i in 0..<emailsArray.count{
+            if i < firstGoalIndex{
+                name += emailsArray[i]
+            }//name에 이름을 담아
+            else if firstGoalIndex < i && i < lastdotIndex{
+                domain += emailsArray[i]
+            }else if lastdotIndex < i{
+                topDomain += emailsArray[i]
+            }
+        }
+        
+        var namecount = 0
+        for i in name{
+            if alphabet.contains(String(i)) || i == "."{
+                namecount += 1
+            }
+        }
+        
+        var domaincount = 0
+        for i in domain{
+            if alphabet.contains(String(i)){
+                domaincount += 1
+            }
+        }
+        if namecount == name.count && domaincount == domain.count && topLevelDomain.contains(topDomain) &&
+            (namecount + domaincount + topLevelDomain.count) + 2 == emailsArray.count{
+            result += 1
+        }
+    }
+    print(result)
+    
+    return result
+}
+
+solution(["d@co@m.com", "a@abc.com", "b@def.com", "c@ghi.net", "c12.@ghi.net"])

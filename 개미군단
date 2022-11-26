@@ -1,0 +1,26 @@
+import Foundation
+
+func solution(_ hp:Int) -> Int {
+    let general = 5
+    var generalcount = 0
+    let soldier = 3
+    var soldiercount = 0
+    let ant = 1
+    var antcount = 0
+    var hp = hp
+    
+    if hp >= general{
+        generalcount = hp / general
+        hp = hp % general
+    }
+    if hp >= soldier{
+        soldiercount = hp / soldier
+        hp = hp % soldier
+    }
+    if hp >= ant{
+        antcount = hp / ant
+        hp = hp % three
+    }
+ 
+    return generalcount + soldiercount + antcount
+}

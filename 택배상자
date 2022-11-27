@@ -1,0 +1,43 @@
+
+import Foundation
+
+func solution(_ order:[Int]) -> Int {
+    
+    var mainbelt = Array(repeating: 0, count: order.count) //메인벨트
+    var subBelt = [Int]() //보조벨트
+    let firstIndex = order[0] - 1 //첫번째 빼야할 것의 인덱스
+    
+    for i in 0..<order.count{
+        mainbelt[order[i]-1] = i + 1
+    }
+    
+    var count = 0
+    var possibleBox = 1
+    
+    while count <= order.count{
+        if !mainbelt.isEmpty{
+            for i in 0..<mainbelt.count{
+                if mainbelt[i] != possibleBox{
+                    subBelt.insert(mainbelt[i], at: 0)
+                }else{
+                    mainbelt.removeSubrange(0..<i)
+                    break
+                }
+            }
+            
+            if mainbelt[0] == possibleBox{
+                possibleBox += 1
+                mainbelt.remove(at: 0)
+            }
+        }
+        if !subBelt.isEmpty{
+            if subBelt[0] == possibleBox{
+                possibleBox += 1
+                subBelt.remove(at: 0)
+            }
+        }
+        count += 1
+    }
+    
+    return possibleBox - 1
+}

@@ -1,0 +1,16 @@
+import Foundation
+
+func solution(_ clothes:[[String]]) -> Int {
+    
+    var dic: [String:Int] = [:]
+    var result = 1
+    
+    for i in 0..<clothes.count{
+        dic[clothes[i][1]] = (dic[clothes[i][1]] ?? 0) + 1
+    }
+    
+    for i in dic{
+        result = result * (i.value + 1)
+    }
+    return result - 1
+}

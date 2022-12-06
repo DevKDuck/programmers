@@ -1,0 +1,21 @@
+import Foundation
+
+func solution(_ s:String) -> [Int] {
+    var result = [Int]()
+    var s = s
+    s.removeFirst(2)
+    s.removeLast(2)
+    
+    let sArray = s.components(separatedBy: "},{").sorted(by: {$0.count < $1.count}).map{$0.components(separatedBy: ",")}
+    
+    sArray.forEach({ tuple in
+        tuple.forEach({ num in
+            let number = Int(num)!
+            if !result.contains(number){
+                result.append(number)
+            }
+        })
+    })
+    
+    return result
+}

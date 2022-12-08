@@ -1,0 +1,41 @@
+import Foundation
+
+func solution(_ n:Int, _ left:Int64, _ right:Int64) -> [Int] {
+    
+    let leftLine = Int(left) / n //행
+    let leftRow = Int(left) % n//열
+    let rightLine = Int(right) / n //행
+    let rightRow = Int(right) % n //열
+    
+    var result = [Int]()
+    
+    for i in leftLine...rightLine{
+        var array = Array(repeating: i + 1, count: i + 1)
+        
+        if i+1 < n{
+            let o = Array(i+2...n)
+            array.append(contentsOf: o)
+        }
+        
+        if leftLine == rightLine{
+            return Array(array[leftRow...rightRow])
+        }
+        
+        if i == leftLine{
+            let p = Array(array[leftRow...n-1])
+            result.append(contentsOf: p)
+        }
+        
+        if i > leftLine && i < rightLine{
+            result.append(contentsOf: array)
+        }
+        
+        if i == rightLine{
+            let q = Array(array[0...rightRow])
+            result.append(contentsOf: q)
+        }
+        
+    }
+    
+    return result
+}

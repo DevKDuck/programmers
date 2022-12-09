@@ -1,0 +1,34 @@
+import Foundation
+
+func solution(_ k:Int, _ tangerine:[Int]) -> Int {
+    
+    var result = 0
+    var needDelete = tangerine.count - k
+    var array = Array(repeating: 0, count: tangerine.max()!)
+    
+    for i in 0..<tangerine.count{
+        array[tangerine[i] - 1] = array[tangerine[i] - 1] + 1
+    }
+    
+    array = array.sorted(by: <)
+    
+    var setK = Set<Int>()
+    for i in tangerine{
+        setK.insert(i)
+    }
+    
+    var delete = 0
+    for i in 0..<array.count{
+        if array[i] != 0{
+            if array[i] + delete <= needDelete{
+                delete += array[i]
+                result += 1
+            }
+            else{
+                return setK.count - result
+            }
+        }
+    }
+    
+    return 0
+}

@@ -1,0 +1,15 @@
+import Foundation
+
+func solution(_ cipher:String, _ code:Int) -> String {
+    
+    var cipherArray = cipher.map{String($0)}
+    var result = ""
+    
+    for i in 0..<cipherArray.count{
+        if (i+1) % code == 0{
+            result += cipherArray[i]    
+        }
+        
+    }
+    return result
+}

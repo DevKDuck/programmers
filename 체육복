@@ -1,0 +1,50 @@
+import Foundation
+
+func solution(_ n:Int, _ lost:[Int], _ reserve:[Int]) -> Int {
+    
+    var nArray = Array(repeating: 1, count: n)
+        
+    for i in 0..<reserve.count{
+        nArray[reserve[i]-1] = 2
+    }
+    
+    for i in 0..<lost.count{
+        if nArray[lost[i]-1] != 2{
+            nArray[lost[i]-1] = 0
+        }else{
+            nArray[lost[i]-1] = 1
+        }
+    }
+    
+    for i in 0..<nArray.count{
+        if i == 0 && nArray[i] == 0{
+            if nArray[i+1] == 2{
+                nArray[i+1] -= 1
+                nArray[i] += 1
+            }
+        }else if i != 0 && i < nArray.count - 1{
+            if nArray[i] == 0{
+                if nArray[i-1] == 2{
+                    nArray[i-1] -= 1
+                    nArray[i] += 1
+                }else if nArray[i+1] == 2{
+                    nArray[i+1] -= 1
+                    nArray[i] += 1
+                }
+            }
+        }else if i == nArray.count - 1 && nArray[i] == 0{
+            if nArray[i-1] == 2{
+                nArray[i-1] -= 1
+                nArray[i] += 1
+            }
+        }
+    }
+
+    var result = 0
+    for i in nArray{
+        if i == 1 || i == 2 {
+            result += 1
+        }
+    }
+    return result
+}

@@ -1,0 +1,15 @@
+import Foundation
+
+func solution(_ a:Int, _ b:Int, _ n:Int) -> Int {
+    var nowHaveBottle = n
+    var result = 0
+    
+    while  a <= nowHaveBottle{
+        result = result + ((nowHaveBottle / a) * b)
+        nowHaveBottle = ((nowHaveBottle / a) * b) + (nowHaveBottle % a)
+        
+    }//빈병 a개보다 내가 가지고 있는 병의 개수가 많거나 같을 경우
+    
+    
+    return result
+}

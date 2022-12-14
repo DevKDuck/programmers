@@ -1,0 +1,20 @@
+import Foundation
+
+func solution(_ food:[Int]) -> String {
+    var front = ""
+    var word = ""
+    
+    for i in 1..<food.count{
+        word = ""
+        if food[i] > 1{
+            for _ in 1...food[i] / 2{
+                word += String(i)
+            }
+            front += word
+        }
+    }
+    
+    let result = front + "0" + String(front.reversed())
+    
+    return result
+}

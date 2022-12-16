@@ -1,0 +1,14 @@
+import Foundation
+
+func solution(_ numbers:[Int], _ direction:String) -> [Int] {
+    var result = numbers
+    if direction == "right" {
+        result.insert(result.last!, at: 0)
+        result.removeLast()
+    }
+    else{
+        result.append(result[0])
+        result.removeFirst()
+    }
+    return result
+}

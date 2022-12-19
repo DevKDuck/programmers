@@ -1,0 +1,49 @@
+import Foundation
+
+func solution(_ id_list:[String], _ report:[String], _ k:Int) -> [Int] {
+    
+    var dic: [String : Int] = [:] //신고한 사람 key , 신고받은 사람 value
+    var setReport = Set<String>() //같은 사람이 같은 사람 신고하는 것을 방지
+    var criminal = Set<String>() //k번 이상 신고받은 사람
+    var resultDic : [String:Int] = [:] //k번 이상 신고받은 사람을 신고한 사람 key, 메일 받은 횟수 value
+    var result = [Int]() //결과값
+    
+    for i in report{
+        setReport.insert(i)
+    }
+    //Set을 이용해 중복되는 신고가 없도록 함
+    
+    for i in setReport{
+        var arr = i.components(separatedBy: " ")
+        dic[arr[1]] = (dic[arr[1]] ?? 0) + 1
+        if (dic[arr[1]] ?? 0) >= k {
+            criminal.insert(arr[1])
+        }
+    }
+    /*
+    띄어쓰기를 기준으로 나눔, arr[0]은 신고한 사람 arr[1]은 신고 당한사람
+    신고당한 사람을 key로 신고 당한 횟수를 value로 받고
+    k번 이상 신고를 당할 경우 criminal이라는 String형 Set에 추가
+    Set사용 이유는 k번째 신고당했을때 Set에 추가하고 k번째 이후에 신고당했어도 추가하려고 하기 때문임 
+    */
+        
+
+    for i in setReport{
+        var arr = i.components(separatedBy: " ")
+        if criminal.contains(arr[1]){
+            resultDic[arr[0]] = (resultDic[arr[0]] ?? 0) + 1
+        }
+    }
+    
+    /*
+    k번 이상 신고받은 사람을 신고한 사람들을 key로 가지고 메일 받은 횟수를 value로 가지도록함
+    메일 안받은 사람은 추가 안됨
+    */
+    
+    for i in id_list{
+        result.append(resultDic[i] ?? 0)
+    }
+    //결과 값에 메일 받은 횟수를 추가, 없을시 0추가
+    
+    return result
+}

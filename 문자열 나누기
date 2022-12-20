@@ -1,0 +1,44 @@
+import Foundation
+
+func solution(_ s:String) -> Int {
+    
+    var firstCount = 0                   //첫글자 x의 개수
+    var otherCount = 0                   //x가 아닌 글자들의 개수 
+    var word = ""                        //분해할때까지 문자열을 담는 문자열 변수
+    var firstCharacter: Character = " "  //문자열을 분해하고 첫번째 문자
+    var result = 0                       //분해한 문자열의 개수
+    
+    for i in s{
+        if firstCount == 0 && otherCount == 0{
+            firstCharacter = i
+        }
+        
+        /*
+        첫글자 x의 개수가 0이고 x가 아닌 글자들의 개수가 0이면
+        firstCharacter(문자 x를) i로 바꿈 
+        */
+        
+        if i == firstCharacter{
+            firstCount += 1
+        }
+        else{
+            otherCount += 1
+        }
+        //문자 i가 x와 같으면 firstCount 1 증가, 아니면 otherCount 1 증가
+        
+        if firstCount == otherCount{
+            result += 1
+            word = ""
+            firstCount = 0
+            otherCount = 0
+        }  //x의 개수와 다른 글자의 개수가 같으면
+        else{
+            word += String(i)
+        }  //개수가 같지 않으면 word에 문자열을 더함
+    }
+    if word != ""{
+        result += 1
+    }
+    //문자열이 분해하지 못하고 남은 문자열들을 위해 1을 증가
+    return result
+}

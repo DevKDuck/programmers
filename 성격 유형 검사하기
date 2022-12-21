@@ -1,0 +1,42 @@
+import Foundation
+
+func solution(_ survey:[String], _ choices:[Int]) -> String {
+    var dic: [String: Int] = ["R" : 0, "T" : 0, "C" : 0, "F" : 0 , "J" : 0, "M" : 0, "A" : 0, "N" : 0]
+    var score = [0,3,2,1,0,1,2,3] //점수
+    var result = ""
+    
+    for i in 0..<survey.count{
+        if choices[i] < 4{
+            dic[String(survey[i].first!)] = dic[String(survey[i].first!)]! + score[choices[i]]
+        }//choices 점수가 4보다 적으면 앞에 글자를 딕셔너리 key를 이용해 찾아 value(점수)를 더해라
+        else{
+            dic[String(survey[i].last!)] = dic[String(survey[i].last!)]! + score[choices[i]]
+        }//choices 점수가 4보다 높으면 뒤에 글자를 딕셔너리 key를 이용해 찾아 value(점수)를 더해라
+    }
+    
+    if dic["R"]! < dic["T"]!{
+        result += "T"
+    }else{
+        result += "R"
+    }
+    
+    if dic["C"]! < dic["F"]!{
+        result += "F"
+    }else{
+        result += "C"
+    }
+    
+    if dic["J"]! < dic["M"]!{
+        result += "M"
+    }else{
+        result += "J"
+    }
+    
+    if dic["A"]! < dic["N"]!{
+        result += "N"
+    }else{
+        result += "A"
+    }
+    
+    return result
+}

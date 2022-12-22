@@ -1,0 +1,63 @@
+import Foundation
+
+func solution(_ board:[[Int]]) -> Int {
+    
+    var boardCount = board.count * board.count
+    var falsecount = 0
+    var booltypeBoard = [[Bool]]()
+    var array = [Bool]()
+    
+    for i in 0..<board.count{
+        array.removeAll()
+        for j in 0..<board[i].count{
+            if board[i][j] == 0{
+                array.append(true)
+            }else{
+                array.append(false)
+            }
+        }
+        booltypeBoard.append(array)
+    }
+
+    for i in 0..<board.count{
+        for j in 0..<board[i].count{
+            if board[i][j] == 1{
+                if i != 0{
+                    booltypeBoard[i-1][j] = false
+                    if j != 0{
+                        booltypeBoard[i-1][j-1] = false
+                    }
+                    if j != board[i].count-1{
+                        booltypeBoard[i-1][j+1] = false
+                    }
+                }
+                if i != board.count-1{
+                    booltypeBoard[i+1][j] = false
+                    if j != 0{
+                        booltypeBoard[i+1][j-1] = false
+                    }
+                    if j != board[i].count-1{
+                        booltypeBoard[i+1][j+1] = false
+                    }
+                }
+                if j != 0{
+                    booltypeBoard[i][j-1] = false
+                }
+                if j != board[i].count-1{
+                    booltypeBoard[i][j+1] = false
+                }
+
+            }
+        }
+    }
+    
+    for i in 0..<booltypeBoard.count{
+        for j in 0..<booltypeBoard[i].count{
+            if booltypeBoard[i][j] == false{
+                falsecount += 1
+            }
+        }
+    }
+
+    return boardCount - falsecount
+}

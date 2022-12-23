@@ -1,0 +1,21 @@
+import Foundation
+
+func solution(_ t:String, _ p:String) -> Int {
+
+    var tValue = ""
+    var result = 0
+    var tArray = t.map{String($0)}
+    
+    for i in 0...tArray.count - p.count{
+        for j in 0...p.count-1{
+            tValue += tArray[i+j]
+        }
+        
+        if Int(tValue)! <= Int(p)!{
+            result += 1
+        }
+        tValue = ""
+    }
+    
+    return result
+}

@@ -1,0 +1,39 @@
+import Foundation
+
+func solution(_ X:String, _ Y:String) -> String {
+    var dicX : [String : Int] = [:]
+    var dicY : [String : Int] = [:]
+    var resultArray = [String]()
+    var result = ""
+    
+    for i in X{
+        dicX[String(i)] = (dicX[String(i)] ?? 0) + 1
+    }
+    
+    for i in Y{
+        dicY[String(i)] = (dicY[String(i)] ?? 0) + 1
+    }
+    
+    for i in dicX{
+        if let dicYValue = dicY[i.key]{
+            for _ in 1...min(i.value, dicYValue){
+                resultArray.append(i.key)
+            }
+        }
+    }
+
+    resultArray = resultArray.sorted(by: >)
+    
+    if resultArray.isEmpty{
+        return "-1"
+    }
+    
+    if resultArray.max() == "0" && resultArray.min() == "0"{
+        return "0"
+    }
+    
+    for i in resultArray{
+        result += i
+    }
+    return result
+}

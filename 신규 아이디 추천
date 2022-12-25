@@ -1,0 +1,61 @@
+import Foundation
+
+func solution(_ new_id:String) -> String {
+   
+    let specialword: [Character] = ["~","!","@","#","$","%","^","&","*","(",")","=","+","[","{","]","}",":","?",",","<",">","/"]
+    let firstStep = new_id.lowercased() //1단계 - lowercased로 소문자로 치환
+    var secondStep = ""
+    
+    for i in firstStep{
+        if ("a" < i && i < "z") || !specialword.contains(i){
+            secondStep += String(i)
+        }
+    }
+    //2단계 대문자와 specailword가 아닌 문자를 더함
+    
+    var thirdStep = ""
+    for _ in 1...20{
+        secondStep = secondStep.replacingOccurrences(of: "..", with: ".")
+    }
+    thirdStep = secondStep
+    //3단계 .이 두개이상 연속으로 있을경우 .으로 바꿔줌
+    
+    if thirdStep.first == "."{
+        thirdStep.remove(at: thirdStep.startIndex)
+    }
+    if thirdStep.last == "."{
+        thirdStep.remove(at: thirdStep.index(thirdStep.endIndex, offsetBy: -1))
+    }
+    
+    var fourthStep = thirdStep
+    //4단계 맨앞과 맨뒤에 .일 경우 .을 지워줌 endIndex는 마지막의 다음인덱스라 -1해주어야함
+    
+    
+    var fifthStep = fourthStep
+    if fifthStep.isEmpty{
+        fifthStep = "a"
+    }
+    
+    //5단계 문자열이 없다면 a를 대입
+    
+    var sixthStep = fifthStep
+    
+    if fifthStep.count >= 16{
+        sixthStep = String(fifthStep[fifthStep.startIndex...fifthStep.index(fifthStep.startIndex, offsetBy: 14)])
+        if sixthStep.last == "."{
+            sixthStep.removeLast()
+        }
+    }
+    //6단계 문자열의 길이가 16이상이라면 처음부터 15길이까지의 문자열을 잘라 sixth에 대입, 마지막이 .이라면 마지막요소인 .제거
+    
+    var seventhStep = sixthStep
+    
+    if seventhStep.count <= 2{
+        for _ in sixthStep.count..<3{
+            seventhStep = seventhStep + String(sixthStep.last!)
+        }
+    }
+
+    //7단계 문자열의 길이가 2이하라면 마지막 글자를 문자열이 3이될때까지 반복하여 더해줌
+    return seventhStep
+}

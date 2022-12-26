@@ -1,0 +1,15 @@
+import Foundation
+
+func solution(_ age:Int) -> String {
+    
+    let asciiIntValue_a = Int(UnicodeScalar("a").value) //아스키코드"a"의 값 97
+    
+    var result = ""  //결과값
+    
+    for age_num in String(age){
+        result += String(UnicodeScalar(asciiIntValue_a + Int(String(age_num))!)!)
+    } //아스키코드값에 숫자를 더한뒤 문자로 변경 
+    
+    return result
+}
+ 

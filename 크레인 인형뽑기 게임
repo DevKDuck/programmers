@@ -1,0 +1,36 @@
+import Foundation
+
+func solution(_ board:[[Int]], _ moves:[Int]) -> Int {
+    
+    var array = Array(repeating: [Int](), count: board.count)
+    var basket = [Int]()
+    
+    for i in board.reversed(){
+        for j in 0..<board.count{
+            if i[j] != 0 {
+                array[j].append(i[j])
+            }
+        }
+    }
+    for i in 0..<moves.count{
+        if let arrayLast = array[moves[i]-1].last{
+            basket.append(arrayLast)
+            array[moves[i]-1].removeLast()
+        }
+    }
+    
+    var count = 0
+    var basketArray = [Int]()
+    
+    for i in 0..<basket.count{
+        if basketArray.isEmpty || basketArray.last != basket[i]{
+            basketArray.append(basket[i])
+        }
+        else if basketArray.last == basket[i]{
+            basketArray.removeLast()
+            count += 2
+        }
+    }
+        
+    return count
+}

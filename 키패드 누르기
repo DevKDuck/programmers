@@ -1,0 +1,62 @@
+import Foundation
+
+func solution(_ numbers:[Int], _ hand:String) -> String {
+
+    let leftFinger = [1,4,7]
+    let rightFinger = [3,6,9]
+
+    let two: [Int : Int] = [2 : 0, 1 : 1, 3 : 1, 5 : 1, 4 : 2, 6 : 2,8 : 2, 7 : 3,9 : 3,0 : 3, 11 : 4,12 : 4]
+    let five: [Int : Int] = [5 : 0, 2 : 1,4 : 1,6 : 1,8 : 1, 1 : 2,3 : 2,7 : 2,9 : 2,0 : 2, 11 : 3,12 : 3]
+    let eight: [Int : Int] = [8 : 0, 5 : 1,7 : 1,9 : 1,0 : 1, 2 : 2,4 : 2,6 : 2,11 : 2,12 : 2,1 : 3,3 : 3]
+    let zero: [Int : Int] = [0 : 0, 11 : 1,12 : 1 ,8 : 1, 7 : 2,9 : 2,5 : 2, 4 : 3,6 : 3,2 : 3, 1 : 4,3 : 4]
+
+    var dic: [String : Int] = [:]
+    var result = ""
+     
+    dic["left"] = 11
+    dic["right"] = 12
+    
+    for i in 0..<numbers.count{
+        
+        func centerLine(to number: [Int:Int]){
+            if number[dic["right"]!]! < number[dic["left"]!]!{
+                result += "R"
+                dic["right"] = numbers[i]
+            }else if number[dic["right"]!]! > number[dic["left"]!]!{
+                result += "L"
+                dic["left"] = numbers[i]
+            }else if number[dic["right"]!]! == number[dic["left"]!]! && hand == "right"{
+                result += "R"
+                dic["right"] = numbers[i]
+            }else if number[dic["right"]!]! == number[dic["left"]!]! && hand == "left"{
+                result += "L"
+                dic["left"] = numbers[i]
+            }
+        }
+        
+        if leftFinger.contains(numbers[i]){
+            result += "L"
+            dic["left"] = numbers[i]
+        }
+        else if rightFinger.contains(numbers[i]){
+            result += "R"
+            dic["right"] = numbers[i]
+        }
+        else{
+            switch numbers[i]{
+            case 2:
+                centerLine(to: two)
+            case 5:
+                centerLine(to: five)
+            case 8:
+                centerLine(to: eight)
+            case 0:
+                centerLine(to: zero)
+            default:
+                break
+            }
+        }
+    }
+
+    return result
+}

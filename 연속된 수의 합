@@ -1,0 +1,29 @@
+import Foundation
+
+func solution(_ num:Int, _ total:Int) -> [Int] {
+    var result = [Int]()
+    
+    var center = total / num
+    result.append(center)
+    
+    if num != 1{
+        if num % 2 != 0 {
+            for i in 1...(num - 1) / 2{
+                result.append(center + i)
+                result.insert(center - i,at:0)
+            }
+        } 
+        else{
+            for j in 1...(total % num){
+                result.append(center + j)
+            }
+            for p in 1...(num-result.count){
+                result.insert(center - p,at:0)
+            }
+        }
+    }
+    else{
+        return result
+    }
+    return result
+}

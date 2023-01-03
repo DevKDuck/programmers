@@ -1,0 +1,15 @@
+import Foundation
+
+func solution(_ my_string:String) -> String {
+    
+    var my_stringArray = [Character]()
+    var result = ""
+    
+    for char in my_string{
+        if !my_stringArray.contains(char){
+            my_stringArray.append(char)
+            result += String(char)
+        }
+    }
+    return result
+}

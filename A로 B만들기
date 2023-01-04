@@ -1,0 +1,11 @@
+import Foundation
+
+func solution(_ before:String, _ after:String) -> Int {
+    var beforeArray = before.map{String($0)}
+    var afterArray = after.map{String($0)}
+    
+    beforeArray = beforeArray.sorted(by: <)
+    afterArray = afterArray.sorted(by: <)
+    
+    return beforeArray == afterArray ? 1 : 0
+}

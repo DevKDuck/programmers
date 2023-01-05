@@ -1,0 +1,84 @@
+import Foundation
+
+func solution(_ fees:[Int], _ records:[String]) -> [Int] {
+    
+    var result = [Int]()
+    let baseTime = fees[0] // 기본 시간(분)
+    let baseFees = fees[1] // 기본 요금(원)
+    let unitTime = fees[2] // 단위 시간(분)
+    let unitFees = fees[3] // 단위 요금(원)
+    
+    var carTimeDic : [String : Int] = [:]  //Key 차량 번호, value (각가 In,Out별로 시간을 가짐)
+    var carInOut : [String : String] = [:] //Key 차량 번호, Value 인/ 아웃
+    var carCumulativetime : [String : Int] = [:] // Key 차량번호, value 누적시간
+    
+    var recordArray = [String]() //records를 공백으로 나누어 String 배열로 리턴한 배열
+    var recordhours = 0 //출차, 입차 했을 때 시간
+    var recordminutes = 0 //출차, 입차 했을 때 분
+    var recordTime = 0 //차량 입차 or 출차 분으로 환산한 값
+    
+    for record in records {
+        recordArray = record.components(separatedBy: " ")
+        recordhours = Int(recordArray[0][recordArray[0].index(recordArray[0].startIndex, offsetBy: 0)...recordArray[0].index(recordArray[0].startIndex, offsetBy: 1)]) ?? 0
+        recordminutes = Int(recordArray[0][recordArray[0].index(recordArray[0].endIndex, offsetBy: -2)...recordArray[0].index(recordArray[0].endIndex, offsetBy: -1)]) ?? 0
+        recordTime = (recordhours * 60) + recordminutes 
+        
+        /*
+        공백을 기준으로 나누어 배열에 담고 startIndex와 endIndex를 통해 시간과 분으로 나눔
+        (시간 * 60) + 분 = 차량 입차 or 출차 분으로 환산한 값
+        */
+        
+        carInOut[recordArray[1] ?? "0"] = recordArray[2] //입 출차 설정
+        
+        if carInOut[recordArray[1] ?? "0"] == "IN"{ 
+            carTimeDic[recordArray[1] ?? "0"] = recordTime
+        }
+        //IN 이라면 carTimeDic에 recordTime(시간)을 추가
+        
+        if carInOut[recordArray[1] ?? "0"] == "OUT"{   
+            carTimeDic[recordArray[1] ?? "0"] = recordTime - (carTimeDic[recordArray[1] ?? "0"] ?? 0)
+            carCumulativetime[recordArray[1] ?? "0"] = (carCumulativetime[recordArray[1] ?? "0"] ?? 0) + (carTimeDic[recordArray[1] ?? "0"] ?? 0)
+        }
+        
+        //OUT 이라면  carTimeDic에 출차 - 입차 시간을 추가하고 그값을 누적시간을 담는 배열일 carCumulativetime에 담아라  
+
+        if record == records.last{   
+            for inOrOut in carInOut{
+                if inOrOut.value == "IN"{
+                    carTimeDic[inOrOut.key] = 1439 - (carTimeDic[inOrOut.key] ?? 0)
+                    if let cKey = carCumulativetime[inOrOut.key]{
+                        carCumulativetime[inOrOut.key] = carTimeDic[inOrOut.key]! + cKey
+                    }
+                    else{ 
+                        carCumulativetime[inOrOut.key] = 0
+                        carCumulativetime[inOrOut.key]! += carTimeDic[inOrOut.key]!
+                    }
+                    //한번도 누적되지 않았을 경우 누적값으로 0을 초기화하고 거기에 시간을 더해줌
+                }
+            }
+        }
+         //OUT은 없고 IN만 가지는 차량은 23:59분에 출차로 계산되어 분으로 환산한 1439에서 입차시간을 빼 누적시간을 담는 배열일 carCumulativetime에 담아라 
+    }
+
+    for (carNumber, carTimes) in carCumulativetime{    //각 차량별 요금을 구하도록 함
+        if carTimes <= baseTime{ 
+            carCumulativetime[carNumber] = baseFees
+        }
+        //기본 시간보다 작거나 같다면 기본 요금을 낼 수 있도록함
+        
+        else{  
+            carCumulativetime[carNumber] = baseFees + Int(ceil(Double(carTimes - baseTime) / Double(unitTime))) * unitFees
+        }
+        //기본 시간보다 오래되었으면 나머지를 올림해서 요금을 낼 수 있도록함
+    }
+
+    let sortedDic = carCumulativetime.sorted{$0.0 < $1.0}
+    //번호가 낮은 차량별 순으로 정렬하였음
+    
+    for i in 0..<sortedDic.count{      
+        result.append(sortedDic[i].value)
+    }
+    //정렬된 딕셔너리에 value 값을 reuslt 배열에 차례로 추가함
+    
+    return result
+}

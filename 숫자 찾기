@@ -1,0 +1,13 @@
+import Foundation
+
+func solution(_ num:Int, _ k:Int) -> Int {
+    var count = 0
+    
+    for number in String(num){
+        count += 1
+        if String(number) == String(k){
+            return count
+        }  
+    }
+    return -1
+}

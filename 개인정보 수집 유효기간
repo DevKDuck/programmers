@@ -1,0 +1,58 @@
+
+import Foundation
+
+func solution(_ today:String, _ terms:[String], _ privacies:[String]) -> [Int] {
+    var termsDic : [String: Int] = [:] // Key 값에 약관종류, Int에 유효기간
+    var seperateTerm: [String] = []  //term을 공백으로 나누어 인덱스[0] = 약관종류, [1] = 유효기간
+    var seperatePrivacy: [String] = [] //privacies를 공백으로 나누어 인덱스[0] = 날짜, [1] = 약관종류
+    
+    var date: [String] = []  //개인정보 수집날짜를 .을 기준으로 나눈 배열
+    var year: Int = 0  //개인정보 수집년
+    var month: Int = 0 //개인정보 수집월
+    var day: Int = 0   //개인정보 수집일
+    
+    var yearGap = 0 // 오늘 년도 - 수집년도
+    var monthGap = 0 // 오늘 월자 - 수집월자
+    var dayGap = 0 // 오늘 일자- 수집일자
+    
+    let todayArray = today.components(separatedBy: ".")    // 오늘 날짜를 공백으로 나누어 담은 배열
+    
+    var result: [Int] = [] //리턴값
+    
+    
+    for term in terms{
+        seperateTerm = term.components(separatedBy: " ")
+        termsDic[seperateTerm[0]] = Int(seperateTerm[1]) ?? 0
+    }
+    
+    //딕셔너리 형태로 약관종류와 유효기간을 key,value에 넣음
+    
+    for privacy in 0..<privacies.count{
+        seperatePrivacy = privacies[privacy].components(separatedBy: " ")
+        
+        date = seperatePrivacy[0].components(separatedBy: ".")
+
+        year = Int(date[0]) ?? 0
+        month = Int(date[1]) ?? 0
+        day = Int(date[2]) ?? 0
+        
+        
+        yearGap = (Int(todayArray[0]) ?? 0) - year
+        monthGap = (Int(todayArray[1]) ?? 0) - month
+        dayGap = (Int(todayArray[2]) ?? 0) - day
+        
+        if (yearGap * 12 + monthGap - (termsDic[seperatePrivacy[1]] ?? 0)) * 28 + dayGap >= 0 {
+            result.append(privacy + 1)
+        }
+        
+        /*
+         오늘날짜에서 수집일을 빼서 달을 기점으로 계산을함 연도는 12개월이니 * 12,
+         총 월에서 유효기간을 뺌
+         월을 일로 환산함 월은 28일씩 있음 * 28 + 나머지 dayGap 추가
+         음수가 아니면 파기해야함
+         */
+    }
+    
+    
+    return result
+}

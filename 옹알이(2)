@@ -1,0 +1,28 @@
+import Foundation
+
+func solution(_ babbling:[String]) -> Int {
+    let possibleWord: [String] = ["aya", "ye", "woo", "ma"] // 옹알이 가능한 단어
+    var plusWord = ""  //babbling의 각 인덱스 별로 한단어씩 추가할 빈문자열
+    var prePossibleWord = "" //연속해서 같은 발음 할떄 전에 옹알이 가능한 단어를 저장하는 빈문자열
+    
+    var result = 0 //결과값
+    
+    for word in babbling{
+        for spell in word{
+            plusWord += String(spell)
+            if possibleWord.contains(plusWord) && plusWord != prePossibleWord{
+                prePossibleWord = plusWord
+                plusWord = ""
+            }
+        }
+        
+        if plusWord == ""{
+            result += 1
+        }
+        else{
+            plusWord = ""
+        }
+        prePossibleWord = ""
+    }
+    
+    return result

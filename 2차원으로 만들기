@@ -1,0 +1,19 @@
+import Foundation
+
+func solution(_ num_list:[Int], _ n:Int) -> [[Int]] {
+    
+     var array = [Int]()
+     var result = [[Int]]()
+     var count = 0
+    
+    for num in num_list {
+        array.append(num)
+        count += 1
+        if count == n {
+            result.append(array)
+            count = 0
+            array.removeAll()        
+        }
+    }    
+    return result
+}

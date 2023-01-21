@@ -1,0 +1,42 @@
+import Foundation
+
+func solution(_ numbers:[Int]) -> Int {
+    
+    var sortedNumbersArray = numbers.sorted(by:<)
+    var minusArray: [Int] = []
+    var plusArray: [Int] = []
+    var minusMax = 0
+    var plusMax = 0
+    
+    if numbers.count == 2{
+        return numbers[0] * numbers[1]
+    }
+
+ func plusOrMinus(num: Int){
+        if num < 0{
+            minusArray.append(num)
+        }
+        else{
+            plusArray.append(num)
+        }
+    }
+    
+    plusOrMinus(num: sortedNumbersArray[0])
+    plusOrMinus(num: sortedNumbersArray[1])
+    plusOrMinus(num: sortedNumbersArray[sortedNumbersArray.count - 1])
+    
+    if sortedNumbersArray.count > 3{
+         plusOrMinus(num: sortedNumbersArray[sortedNumbersArray.count - 2])
+    }
+    
+    if minusArray.count > 1{
+        minusMax = minusArray[0] * minusArray[1]
+    }
+    
+    if plusArray.count > 1 {
+        plusMax = plusArray[plusArray.count - 1] * plusArray[plusArray.count - 2]
+    }
+    
+    
+    return minusMax > plusMax ? minusMax : plusMax
+}

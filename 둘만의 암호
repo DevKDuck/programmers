@@ -1,0 +1,52 @@
+import Foundation
+
+func solution(_ s:String, _ skip:String, _ index:Int) -> String {
+    
+    
+    let initAlphabet = Unicode.Scalar("a")
+    
+    let endAlphabet = Unicode.Scalar("z")
+    
+    var skipArray: [String] = []
+    
+    var alphabetArray: [String] = []
+    
+    
+    //MARK: skipArray 각 단어를 String자료형 배열로 만듬
+    
+    for word in skip{
+        skipArray.append(String(word))
+    }
+    
+    //MARK: a부터 z중에 skipArray에 포함되어 있지 않은 문자열만 추출해 alphabetArray에 담음
+    
+    for value in initAlphabet.value...endAlphabet.value{
+        if let val = Unicode.Scalar(value){
+            if !skipArray.contains(String(val)){
+                alphabetArray.append(String(val))
+            }
+        }
+    }
+    
+    /*
+    알파벳은 총 26개, Skip은 최대 10개 
+    만약 skip이 최대 갯수여서 10개면 알파벳은 16개가 됨
+    거기에 마지막 알파벳의 index가 최대 20일 경우를 대비해 array를 3번 더해줌 
+    */
+    
+   alphabetArray = alphabetArray + alphabetArray + alphabetArray
+    
+    var result = ""
+    
+    
+    //MARK: 문자열이 같다면 index를 더해서 result에 추가 
+    
+    for word in s{
+        for arrayindex in 0..<alphabetArray.count / 3{
+            if alphabetArray[arrayindex] == String(word){
+                result += alphabetArray[arrayindex + index]
+            }
+        }
+    }
+    return result
+}

@@ -1,0 +1,24 @@
+import Foundation
+
+func solution(_ s:String) -> String {
+    var dic = [String:Int]()
+    var array = [String]()
+    var result = ""
+    
+    for word in s{
+        dic[String(word)] = (dic[String(word)] ?? 0) + 1
+    }
+    
+    
+    for word in dic{
+        if word.value == 1 {
+            array.append(word.key)
+        }
+    }
+    array = array.sorted(by: <)
+    
+    for word in array{
+        result+=word
+    }
+    return result
+}

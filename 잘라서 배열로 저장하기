@@ -1,0 +1,23 @@
+import Foundation
+
+func solution(_ my_str:String, _ n:Int) -> [String] {
+    var count = 0
+    var result = [String]()
+    var word = ""
+    
+    for alphabet in my_str{
+        count += 1
+        word += String(alphabet)
+        
+        if count == n {
+            result.append(word)
+            count = 0
+            word = ""
+        }
+    }
+      
+    if word != ""{
+        result.append(word)
+    }
+    return result
+}

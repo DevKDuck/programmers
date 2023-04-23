@@ -1,0 +1,37 @@
+
+import Foundation
+
+func solution(_ players:[String], _ callings:[String]) -> [String] {
+    
+    var dic:[String:Int] = [:]
+    var dic2: [Int:String] = [:]
+    var result = [String]()
+    
+    for i in 0..<players.count{
+        dic[players[i]] = i
+    }
+    
+    
+    for i in 0..<players.count{
+        dic2[i] = players[i]
+    }
+    
+    
+    for name in callings{
+        
+        let preName = dic2[dic[name]!-1]
+        dic[preName!] = dic[preName!]! + 1
+        dic[name] = dic[name]! - 1
+        
+        dic2[dic[preName!]!] = preName
+        dic2[dic[name]!] = name
+
+    }
+    
+    let sortedArray = dic.sorted{ $0.1 < $1.1}
+    
+    for name in sortedArray{
+        result.append(name.key)
+    }
+    return result
+}

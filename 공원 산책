@@ -1,0 +1,100 @@
+import Foundation
+
+func solution(_ park:[String], _ routes:[String]) -> [Int] {
+    
+    //start = 현재 위치
+    var location: [Int] = [Int]()
+    
+    //park 문자열 배열을 각 문자열마다 배열로 변환한 2차원 배열
+    var parkArray = [[String]]()
+    
+    for i in park{
+        parkArray.append(i.map({String($0)}))
+    }
+    
+    
+    //시작 위치 찾기
+    for i in 0..<park.count{
+        var count = 0
+        for word in park[i]{
+            if word == "S"{
+                location = [i,count]
+                break
+            }
+            count += 1
+        }
+    }
+    
+    
+    //routes 공백을 제거함,0번째 인덱스는 방향, 1번째는 이동거리
+    var array = [[String]]()
+    for i in routes{
+        array.append(i.components(separatedBy: " "))
+    }
+    
+    for i in array{
+        
+        var count = 0
+        guard let distance = Int(i[1]) else {return location}
+        switch i[0]{
+        case "E":
+            if location[1] + distance < parkArray[0].count{
+                for j in location[1]...location[1] + distance{
+                    if parkArray[location[0]][j] == "X"{
+                        count += 1
+                    }
+                }
+                
+                if count == 0{
+                    location[1] = location[1] + distance
+                }
+            }
+            
+        case "S":
+            if location[0] + distance < park.count{
+                for j in location[0]...location[0] + distance{
+                    if parkArray[j][location[1]] == "X"{
+                        count += 1
+                    }
+                }
+                
+                if count == 0{
+                    location[0] = location[0] + distance
+                }
+            }
+            
+        case "W":
+            
+            if location[1] - distance >= 0{
+                for j in location[1] - distance ... location[1]{
+                    if parkArray[location[0]][j] == "X"{
+                        count += 1
+                    }
+                }
+                
+                if count == 0{
+                    location[1] = location[1] - distance
+                }
+            }
+            
+        case "N":
+            
+            if location[0] - distance >= 0{
+                for j in location[0] - distance ... location[0]{
+                    if parkArray[j][location[1]] == "X"{
+                        count += 1
+                    }
+                }
+                if count == 0{
+                    location[0] = location[0] - distance
+                }
+                
+            }
+            
+        default:
+            break
+        }
+    }
+
+    return location
+}

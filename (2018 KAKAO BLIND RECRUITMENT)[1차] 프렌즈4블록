@@ -1,0 +1,52 @@
+import Foundation
+
+func solution(_ m:Int, _ n:Int, _ board:[String]) -> Int {
+    
+    var boardArray: [[String]] = [[String]]()
+    var count = 0
+    
+    for ele in board{
+        boardArray.append(ele.map{String($0)})
+    }
+
+    while true{
+        
+        var setCordi = Set<[Int]>()
+                
+        for i in 0..<m-1{ //행의 개수
+            for j in 0..<n-1{ //열의 개수
+                if boardArray[i][j] != "0" && boardArray[i][j] == boardArray[i][j+1] && boardArray[i+1][j] == boardArray[i+1][j+1] && boardArray[i][j] == boardArray[i+1][j+1]{ //1번
+                    setCordi.insert([i,j])
+                    setCordi.insert([i,j+1])
+                    setCordi.insert([i+1,j])
+                    setCordi.insert([i+1,j+1])
+                }
+            }
+        }
+        
+        if setCordi.isEmpty{
+            return count
+        }
+        
+        for i in setCordi{
+            boardArray[i[0]][i[1]] = "0"
+            count += 1
+        }
+
+        
+        for i in stride(from: m-1, to: 0, by: -1){
+            for j in 0..<n{
+                if boardArray[i][j] == "0"{
+                    for p in stride(from: i, through: 0, by: -1){
+                        if boardArray[p][j] != "0" && boardArray[i][j] == "0"{
+                            boardArray[i][j] = boardArray[p][j]
+                            boardArray[p][j] = "0"
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    return count
+}

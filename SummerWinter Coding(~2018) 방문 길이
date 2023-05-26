@@ -1,0 +1,47 @@
+import Foundation
+
+func solution(_ dirs:String) -> Int {
+    
+    var passArray: [[String]] = [[String]]() //지나간 자리
+    var now: [Int] = [0,0] //현재 위치
+    var count = 0 //방문 길이
+    
+    for i in dirs{
+        
+        let preCoordinate = String(now[0]) + String(now[1])
+        switch i{
+        case "U":
+            if !(now[1] + 1 > 5){
+                now[1] += 1
+            }
+        case "D":
+            if !(now[1] - 1 < -5){
+                now[1] -= 1
+            }
+        case "R":
+            if !(now[0] + 1 > 5){
+                now[0] += 1
+            }
+        case "L":
+            if !(now[0] - 1 < -5){
+                now[0] -= 1
+            }
+        default:
+            break
+        }
+        let postCoordinate = String(now[0]) + String(now[1])
+        
+        if preCoordinate != postCoordinate{
+            let prePostArray: [String] = [preCoordinate,postCoordinate]
+            let postPreArray: [String] = [postCoordinate,preCoordinate]
+            
+            if passArray.contains(prePostArray) || passArray.contains(postPreArray) {
+            }
+            else{
+                passArray.append(prePostArray)
+                count += 1
+            }
+        }
+    }
+    return count
+}

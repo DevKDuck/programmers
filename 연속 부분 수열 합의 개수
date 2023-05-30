@@ -1,0 +1,34 @@
+import Foundation
+
+func solution(_ elements:[Int]) -> Int {
+
+    var sumSet = Set<Int>()
+
+    for j in 1...elements.count{
+
+        if j != elements.count{
+            for i in 0..<elements.count{
+                var sum = 0
+                for p in 0...j-1{
+                    if i+p > elements.count-1{
+                        sum += elements[((i + p) % (elements.count-1)) - 1]
+                    }
+                    else{
+                        sum += elements[i+p]
+                    }
+                }
+                sumSet.insert(sum)
+            }
+        }
+        else{
+            var sum = 0
+            for ele in elements{
+                sum += ele
+            }
+            sumSet.insert(sum)
+        }
+
+    }
+
+    return sumSet.count
+}

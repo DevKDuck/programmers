@@ -1,0 +1,86 @@
+import Foundation
+
+func solution(_ rows:Int, _ columns:Int, _ queries:[[Int]]) -> [Int] {
+    
+     if queries == [[1,1,rows,columns]]{
+        return [1]
+    } // 가장 테두리 수만 회전할 경우
+    
+    var board: [[Int]] = [[Int]]() //행렬 생성
+    let max = rows * columns //총 개수
+    var array = [Int]()
+    
+    for i in 1...max{
+        array.append(i)
+        if array.count == columns{
+            board.append(array)
+            array.removeAll()
+        }
+    }
+    //행렬 생성
+    
+    var rotation = [Int]() //회전하는 수를 담을 배열
+    var result = [Int]() //반환배열
+
+    
+    for coordinate in queries{
+        var minNum = 10001 // 회전하는 수 중에 가장 작은 수 
+        
+        for i in coordinate[1]-1...coordinate[3]-1{
+            rotation.append(board[coordinate[0]-1][i])
+            if board[coordinate[0]-1][i] < minNum{
+                minNum = board[coordinate[0]-1][i]
+            }
+        }
+//        x1y1 -> x1y2
+
+        for i in coordinate[1]...coordinate[3]-1{
+            board[coordinate[0]-1][i] = rotation[0]
+            rotation.remove(at: 0)
+        }
+
+
+        for i in coordinate[0]...coordinate[2]-1{
+            rotation.append(board[i][coordinate[3]-1])
+            if board[i][coordinate[3]-1] < minNum{
+                minNum = board[i][coordinate[3]-1]
+            }
+        }
+//        x1y2 ->x2y2
+
+        for i in coordinate[0]...coordinate[2]-1{
+            board[i][coordinate[3]-1] = rotation[0]
+            rotation.remove(at: 0)
+        }
+       
+        for i in stride(from: coordinate[3]-2, through: coordinate[1]-1, by: -1){
+            rotation.append(board[coordinate[2]-1][i])
+            if board[coordinate[2]-1][i] < minNum{
+                minNum = board[coordinate[2]-1][i]
+            }
+        }
+        //x2y2->x2y1
+
+        for i in stride(from: coordinate[3]-2, through: coordinate[1]-1, by: -1){
+            board[coordinate[2]-1][i] = rotation[0]
+            rotation.remove(at: 0)
+        }
+
+        for i in stride(from: coordinate[2]-2, through: coordinate[0], by: -1){
+            rotation.append(board[i][coordinate[1]-1])
+            if board[i][coordinate[1]-1] < minNum{
+                minNum = board[i][coordinate[1]-1]
+            }
+        }
+        //x2y1->x1y1
+
+        for i in stride(from: coordinate[2]-2, through: coordinate[0]-1, by: -1){
+            board[i][coordinate[1]-1] = rotation[0]
+            rotation.remove(at: 0)
+        }
+        
+        result.append(minNum)
+    }
+
+    return result
+}

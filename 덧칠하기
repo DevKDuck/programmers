@@ -1,0 +1,26 @@
+import Foundation
+
+func solution(_ n:Int, _ m:Int, _ section:[Int]) -> Int {
+    
+    var wall = Array(repeating: 0, count: n)
+    var count = 0
+    
+    for i in 0..<section.count{
+        wall[section[i]-1] = 1
+    }
+    
+    for p in 0..<wall.count-m{
+        if wall[p] == 1{
+            for k in p...p+m-1{
+                wall[k] = 0
+            }
+            count += 1
+        }
+    }
+    
+    if wall[(wall.count-m..<wall.count)].contains(1){
+        count += 1
+    }
+
+    return count
+}

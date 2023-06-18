@@ -1,0 +1,38 @@
+import Foundation
+
+func solution(_ numbers:[Int64]) -> [Int64] {
+    
+    var result = [Int64]()
+    
+    for num in numbers{
+        var num2 = String(num, radix: 2).map{String($0)}
+        
+        if num2[num2.count-1] == "0"{ 
+            result.append(num+1)
+            continue
+        }
+        else{
+            if !num2.contains("0"){
+                num2.insert("1", at: 0)
+                num2[1] = "0"
+                let num2Str = num2.reduce("", {$0 + $1})
+                result.append(Int64(num2Str,radix: 2)!)
+            }
+            
+            else{
+                for i in stride(from: num2.count-1, through: 0, by: -1){
+                    if num2[i] == "0"{ 
+                        num2[i] = "1"
+                        num2[i+1] = "0"
+                        let num2Str = num2.reduce("", {$0 + $1})
+                        result.append(Int64(Int(num2Str,radix: 2)!))
+                        break
+                    }
+                }
+            }
+            
+        }
+        
+    }
+    return result
+}

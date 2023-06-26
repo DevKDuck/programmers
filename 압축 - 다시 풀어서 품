@@ -1,0 +1,51 @@
+func solution(_ msg:String) -> [Int] {
+    
+    let initalAlphabet = Unicode.Scalar("A").value
+    let endAlphabet = Unicode.Scalar("Z").value
+    
+    var dic: [String : Int] = [:]
+    var count = 0
+    
+    for i in initalAlphabet...endAlphabet{
+        if let alphabet = Unicode.Scalar(i){
+            count += 1
+            dic[String(alphabet)] = count
+        }
+    }
+    
+    var startNum = 0
+    var endNum = 0
+    
+    var result:[Int] = [Int]()
+    
+    while startNum < msg.count{
+        var wcount = 0
+        var w:String = ""
+        for i in startNum+1...msg.count{
+            endNum = i
+            let startIndex = msg.index(msg.startIndex, offsetBy: startNum)
+            let endIndex = msg.index(msg.startIndex, offsetBy: endNum)
+            var slice_msg = msg[startIndex..<endIndex]
+            if dic.keys.contains(String(slice_msg)){
+                w = String(slice_msg)
+                wcount += 1
+            }
+            else{
+                if wcount > 1 {
+                    startNum = startNum + (wcount - 1)
+                }
+                count += 1
+                dic[String(slice_msg)] = count
+                result.append(dic[w] ?? -1)
+                wcount = 0
+                break
+            }
+            if i == msg.count{
+                result.append(dic[w] ?? -1)
+                return result
+            }
+        }
+        startNum += 1
+    }
+    return result
+}

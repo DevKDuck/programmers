@@ -1,0 +1,55 @@
+import Foundation
+
+func solution(_ n:Int, _ computers:[[Int]]) -> Int {
+    var array = [[Int]]()
+    
+    for index in 0..<computers.count{
+        for i in 0..<computers[index].count{
+            var connect = [Int]()
+            if computers[index][i] == 1 && i != index{
+                connect.append(i)
+                connect.append(index)
+            }
+            connect.sort(by: <)
+//            print(connect)
+            if !array.contains(connect) && connect != [Int](){
+                array.append(connect)
+            }
+        }
+        
+    }
+
+    var result = [[Int]]()
+    for i in array{
+        if result.count != 0{
+            for p in 0..<result.count{
+                if result[p].contains(i[0]){
+                    if !result[p].contains(i[1]){
+                        result[p].append(i[1])
+                    }
+                }
+                else{
+                    result.append(i)
+                }
+            }
+        }
+        else{
+            result.append(i) //result에 첫번째를 더해
+        }
+        
+    }
+    
+    var count = 0
+    
+    for i in result{
+        count += i.count
+    } //연결되어 있는 컴퓨터들의 수
+    
+//    return = (총컴퓨터 수 - 연결이 되어 있는 컴퓨터의 수) + result의 개수
+    
+    
+    
+    return (n - count) + result.count
+}
+
+

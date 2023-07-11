@@ -1,0 +1,37 @@
+import Foundation
+
+func solution(_ numbers:[Int], _ target:Int) -> Int {
+    
+    var result = 0
+    var allcase: [Set<Int>:Bool] = [:]
+    var numArray = [Int]()
+    
+    func visit(_ indexArray: Set<Int>){
+        numArray = numbers
+        for i in indexArray{
+            numArray[i] *= -1
+        }
+        
+        if numArray.reduce(0,+) == target{
+            allcase[indexArray] = true
+            result += 1
+        }else{
+            allcase[indexArray] = false
+        }
+        
+        for i in indexArray.count-1..<numbers.count-1{
+            if !indexArray.contains(i) && indexArray.count < numbers.count{
+                let sumArray = Set(indexArray + [i])
+                if allcase[sumArray] == nil{
+                    visit(sumArray)
+                }
+            }
+        }
+    }
+    
+    for i in 0..<numbers.count{
+        visit([i])
+    }
+    
+    return result
+}

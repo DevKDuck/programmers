@@ -1,0 +1,7 @@
+import Foundation
+func solution(_ s:String) -> String {
+
+    let splitS = s.components(separatedBy: " ").map{Int($0)!}
+    
+    return "\(splitS.min()!) \(splitS.max()!)"
+}

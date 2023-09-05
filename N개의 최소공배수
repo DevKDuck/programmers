@@ -1,0 +1,37 @@
+import Foundation
+
+
+func solution(_ arr:[Int]) -> Int {
+    
+    var arr1 = arr  // arr배열을 받아 나머지로 변환될 배열
+    var divideCount = 0  //2이상의 수로 나누었을 경우 배열안에 수중 나누어 지는 수가 2개이상인지 파악하는 변수
+    var stackArr = [Int]() //2이상의 수로 나누었을 경우 2개이상 나눠 질때 나누는 수를 담을 배열
+    
+    var i = 2  //2이상의 수로 나눌 수
+    while i <= arr1.max()!{        // arr1의 최대값이 될때까지 나눔
+        for j in arr1{             
+            if j % i == 0 {
+                divideCount += 1    //나눠지는 경우 divideCount +1
+            }
+        }
+        if divideCount >= 2{          //divideCount가 둘이상이면 
+            stackArr.append(i)        //나누는 수를 배열에 추가하고
+            for p in 0..<arr1.count{  //나눈 값들로 arr1을 변경 
+                if arr1[p] % i == 0 {
+                    arr1[p] = arr1[p] / i
+                }
+            }
+            i = 2     //변경되었으니 다시 나눌 수를 2부터 변환
+            
+        }
+        else{
+            i += 1  // 나눠지는 수가 2개이상 없을 경우 i증가
+        }
+    
+        divideCount = 0  // divideCount도 0으로 초기화
+    }
+    
+    let a = arr1 + stackArr  //나눠서 몫을 가지는 arr1과 나눌 값을 저장한 stackArr을 합침
+    
+    return a.reduce(1, *)  //reduce 매서드를 이용해 연산
+}

@@ -1,0 +1,46 @@
+import Foundation
+
+func solution(_ sequence:[Int], _ k:Int) -> [Int] {
+   
+    var left = 0
+    var right = 0
+    var sum = sequence[left]
+    var result = [Int]()
+    
+    while left < sequence.count-1{
+        if k < sum{
+            sum -= sequence[left]
+            left += 1
+        }
+        
+        else if k > sum{
+            if right < sequence.count-1{
+                right += 1
+                sum += sequence[right]
+            }else{
+                sum -= sequence[left]
+                left += 1
+            }
+        }
+        
+        if k == sum {
+            if result.isEmpty{
+                result = [left,right]
+            }
+            else{
+                if result[1] - result[0] > right - left{
+                    result = [left,right]
+                }else{
+                    sum -= sequence[left]
+                    left += 1
+                }
+            }
+            if right < sequence.count-1{
+                right += 1
+                sum += sequence[right]
+            }
+        }
+    }
+    
+    return result
+}

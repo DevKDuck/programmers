@@ -1,0 +1,43 @@
+import Foundation
+
+func solution(_ keymap:[String], _ targets:[String]) -> [Int] {
+  
+    var dic: [String:Int] = [:]
+    var result = [Int]()
+  
+  // dic- key:알파벳, value: index 저장
+    for k in keymap{
+        var index = 1
+        for word in k{
+            if dic[String(word)] == nil{
+                dic[String(word)] = index
+            }
+            else{
+                if dic[String(word)]! > index{
+                    dic[String(word)] = index
+                }
+            }
+            index += 1
+        }
+    }
+
+//value값을 가질 경우 인덱스 추가, 없을시 -1 추가
+    for word in targets{
+        var count = 0
+        var haveAlphabet = true
+        for alphabet in word{
+            if let a = dic[String(alphabet)]{
+                count += a
+            }else{
+                result.append(-1)
+                haveAlphabet = false
+                break
+            }   
+        }
+        if haveAlphabet == true{
+            result.append(count)    
+        }
+        
+    }
+    return result
+}

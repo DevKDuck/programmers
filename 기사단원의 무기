@@ -1,0 +1,26 @@
+import Foundation
+
+func solution(_ number:Int, _ limit:Int, _ power:Int) -> Int {
+
+    var result = 0
+    for i in 1...number{
+        var cnt = 0
+        let range = Int(sqrt(Double(i)))
+        
+        for j in 1...range{
+            if i % j == 0{
+                cnt += 1
+                if j * j != i{
+                    cnt += 1
+                }
+            }
+        }
+        if cnt > limit{
+            result += power
+        }else{
+            result += cnt
+        }
+        
+    }
+    return result
+}

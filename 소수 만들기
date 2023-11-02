@@ -1,0 +1,36 @@
+import Foundation
+
+func solution(_ nums:[Int]) -> Int {
+    var result = 0
+
+    for one in 0..<nums.count - 2{
+        var two = one
+        
+        while two < nums.count - 2{
+            two += 1
+            var three = two
+            
+            while three < nums.count - 1{
+                three += 1        
+                let sum = nums[one] + nums[two] + nums[three]
+                let sqrtSum = sqrt(Double(sum))
+                var measure = 0 //약수
+                
+                for i in 1...Int(sqrtSum){ 
+                    if sum % i == 0{
+                        measure += 1
+                    }
+                }
+                
+                if measure == 1{
+                    result += 1
+                }
+                
+            }
+            
+        }
+        
+    }
+
+    return result
+}

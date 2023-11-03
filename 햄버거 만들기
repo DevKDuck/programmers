@@ -1,0 +1,67 @@
+import Foundation
+
+func solution(_ ingredient:[Int]) -> Int {
+    var result = 0
+    
+    var ingredientArray = ingredient
+    
+    var norule = [Int]() //규칙에 어긋난 재료들을 넣는 배열
+    
+    var rule = [Int]() //규칙에 맞는 재료들을 임시로 넣을 배열
+    
+    var contrast = 1
+    
+    var hamburger = [1,2,3,1]
+    
+    var preResult = 0
+    
+    while true{
+    
+        for i in ingredientArray{
+
+            if i == hamburger[contrast-1]{
+                rule.append(i) 
+                
+                contrast += 1
+                if contrast == 5{
+                    
+                    result += 1
+                    contrast = 1
+                    rule.removeAll()
+                }
+            }
+            else{
+                if rule.isEmpty{
+                    norule.append(i)
+                    
+                }
+                else{
+                    norule += rule
+                    rule.removeAll()
+                    contrast = 1
+                    if i == contrast{
+                        rule.append(i)
+                        contrast += 1
+
+                    }else{
+                        norule.append(i)
+                    }
+                }
+            }
+        }
+        
+        ingredientArray = norule + rule
+        norule.removeAll()
+        rule.removeAll()
+
+        if preResult < result {
+            preResult = result
+        }
+        else{
+            return result
+        }
+    }
+    
+    return result
+    
+}

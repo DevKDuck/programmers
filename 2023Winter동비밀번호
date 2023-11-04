@@ -1,0 +1,59 @@
+import Foundation
+
+func solution(_ passwords:[[Int]], _ s:String) -> Int {
+
+    var result = 0
+
+    var dongDic: [Int:Int] = [:] // 동 - key, 비번 - value
+
+    //1. dongDic에 주입
+    for password in passwords{
+        dongDic[password[0]] = password[1]
+    }
+
+    //2. #을 기준으로 배열을 만듦
+    var sArray = s.components(separatedBy:"#")
+    sArray.removeLast()
+    
+    //0이면 동이 없다 1이면 동이 있다
+    var dongBool = 0
+    var pwd = 0
+
+    for i in sArray{
+        let num = Int(i)!
+        if dongDic[num] != nil{
+            if dongBool == 0{
+                dongBool = 1
+                pwd = dongDic[num]!
+            }
+            else{
+                if pwd == num{
+                    dongBool = 0
+                    pwd = 0
+                    result += 1
+                }
+                else{
+                    dongBool = 0
+                    pwd = 0
+                }
+
+            }
+        }
+        else{
+            if dongBool == 1{
+                if pwd == num{
+                    dongBool = 0
+                    pwd = 0
+                    result += 1
+                }
+                else{
+                    dongBool = 0
+                    pwd = 0
+                }
+            }
+            
+        }
+
+    }
+    return result
+}

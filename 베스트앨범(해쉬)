@@ -1,0 +1,53 @@
+import Foundation
+
+func solution(_ genres:[String], _ plays:[Int]) -> [Int] {
+    
+    var dic: [String : Int] = [:] // 장르:총합횟수
+    var dic2: [String:[Int]] = [:] // 장르:[인덱스]
+    var dic3: [Int:Int] = [:] // 인덱스,듣는횟수
+    
+    for i in 0..<genres.count{
+        let genre = genres[i]
+        
+        if dic[genre] == nil{
+            dic[genre] = plays[i]
+        }
+        else{
+            dic[genre] = dic[genre]! + plays[i]
+        }
+        if dic2[genre] == nil{
+            dic2[genre] = [i]
+        }
+        else{
+            dic2[genre]?.append(i)
+        }
+        dic3[i] = plays[i]
+    }
+    
+    let sortOne = dic.sorted{$0.1 > $1.1} //1번 규칙 - 많이 실행된 장르
+    
+    var result = [Int]()
+    
+    for i in sortOne{
+        let a = dic2[i.key]! 
+        var d: [Int:Int] = [:] // 인덱스 : 듣는횟수
+        for j in a{
+            d[j] = dic3[j] //
+        }
+        var arr = d.sorted{
+            if $0.1 == $1.1{  //3번 규칙 - 재생 횟수 같은 경우 고유 번호 낮은 노래 먼저 수록
+                return $0.0 < $1.0
+            }
+            return $0.1 > $1.1 //2번 규칙 - 장르 내에서 많이 재생된 노래 수록
+        }.map{$0.key}
+        
+        if arr.count <= 2{
+            result += arr
+        }
+        else{
+            result.append(arr[0])
+            result.append(arr[1])
+        }
+    }
+    return result
+}

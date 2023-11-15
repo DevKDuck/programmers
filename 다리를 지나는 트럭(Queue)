@@ -1,0 +1,25 @@
+import Foundation
+
+func solution(_ bridge_length:Int, _ weight:Int, _ truck_weights:[Int]) -> Int {
+    var queue = Array(repeating: 0, count: bridge_length) //큐
+    var sum = 0 //다리에 올라간 트럭의 무게 합
+    var waitTruck = truck_weights //기다리는 트럭들
+    var result = 0 //총 시간
+    
+    while !queue.isEmpty{ 
+        result += 1
+       
+        sum -= queue.removeFirst()
+        if let t = waitTruck.first{ 
+            if t + sum <= weight{
+                sum += waitTruck.removeFirst()
+                queue.append(t)
+            }
+            else{
+                queue.append(0)
+            }
+        }   
+        
+    }
+    return result
+}

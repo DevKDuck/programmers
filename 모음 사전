@@ -1,0 +1,26 @@
+import Foundation
+
+func solution(_ word:String) -> Int {
+    
+    var aeiou = ["A", "E", "I", "O", "U"]
+    var dicArray = [String]()
+    var words = ""
+    
+    func dfs(){
+        if words.count == 6{
+            return
+        }
+        
+        dicArray.append(words)
+        
+        for i in 0..<5{
+            words += aeiou[i]
+            dfs()
+            words.removeLast()
+        }
+    }
+    dfs()
+    
+    return (dicArray.firstIndex(of: word) ?? 0)
+}
+

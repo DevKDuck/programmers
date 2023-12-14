@@ -1,0 +1,39 @@
+import Foundation
+
+func solution(_ company_names:[String], _ scores:[[Int]]) -> [String] {
+
+var dic: [String:Int] = [:] //80점 넘는 개수
+var sumDic: [String:Int] = [:] //총점
+
+for i in 0..<scores.count{
+    var eightcount = 0
+    var sum = 0
+    for j in scores[i]{
+        if j >= 80{ //80점을 넘기면 
+            eightcount += 1 
+        }
+        sum += j
+    }
+    dic[company_names[i]] = eightcount
+    sumDic[company_names[i]] = sum
+}
+
+ let sortedCompanies = dic.sorted {
+        if $0.value == $1.value {
+            if (sumDic[$0.key] ?? 0) == (sumDic[$1.key] ?? 0){
+                return (sumDic[$0.key] ?? 0) > (sumDic[$1.key] ?? 0)
+            }
+            return (sumDic[$0.key] ?? 0) > (sumDic[$1.key] ?? 0)
+        }
+        return $0.value > $1.value
+    }
+
+    // 정렬된 순서대로 기업 이름을 저장할 배열 생성
+    var result = [String]()
+    for (company, _) in sortedCompanies {
+        result.append(company)
+    }
+
+
+    return result
+}

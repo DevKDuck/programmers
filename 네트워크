@@ -1,6 +1,53 @@
 import Foundation
 
 func solution(_ n:Int, _ computers:[[Int]]) -> Int {
+    
+    var nodeDic = [Int:[Int]]() // 인접한 노드들을 가지는 딕셔너리
+    
+    for i in 0..<computers.count{
+        var arr = [Int]()
+        for j in 0..<computers[i].count{
+            if computers[i][j] == 1 && i != j{
+                arr.append(j)
+            }
+        }
+        nodeDic[i] = arr
+    }
+    //nodeDic 데이터 저장
+    
+    var network = [[Int]]()
+    
+    for i in 0..<n{
+        let arr = dfs(dic: nodeDic, start: i).sorted(by: <)
+        if !network.contains(arr){
+            network.append(arr)
+        }
+    }
+    return network.count
+}
+
+func dfs(dic: [Int:[Int]], start: Int) -> [Int]{
+    var queue = [Int]()
+    var stack = [start]
+    
+    while !stack.isEmpty{
+        let node = stack.removeLast()
+        if queue.contains(node){ continue}
+        
+        queue.append(node)
+        stack += dic[node] ?? []
+    }
+    return queue
+}
+
+
+
+
+
+// DFS 사용 전 실패 코드 
+import Foundation
+
+func solution(_ n:Int, _ computers:[[Int]]) -> Int {
     var array = [[Int]]()
     
     for index in 0..<computers.count{

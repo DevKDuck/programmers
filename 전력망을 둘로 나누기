@@ -1,0 +1,49 @@
+import Foundation
+
+func solution(_ n:Int, _ wires:[[Int]]) -> Int {
+    
+    var result = n
+    
+    for i in 0..<wires.count {
+        var graph: [Int:[Int]] = [:]
+        var wireless = wires
+        wireless.remove(at: i)
+        
+        var arr = [Int]()
+        
+        for j in 0..<wireless.count{
+            graph[wireless[j][0]] = (graph[wireless[j][0]] ?? arr) + [wireless[j][1]]
+            graph[wireless[j][1]] = (graph[wireless[j][1]] ?? arr) + [wireless[j][0]]    
+        }
+        
+        let a = dfs(graph, 1).count
+        let b = n - a
+        
+        if a >= b{
+            if result > a - b{
+                result = a - b
+            }
+        }
+        else{
+            if result > b - a{
+                result = b - a
+            }
+        }
+    }
+    return result
+}
+
+func dfs(_ graph: [Int:[Int]], _ start: Int) -> [Int]{
+    var queue = [Int]()
+    var stack = [start]
+    
+    while !stack.isEmpty{
+        let node = stack.removeLast()
+        if queue.contains(node) {continue}
+        
+        queue.append(node)
+        stack += graph[node] ?? []
+    }
+    
+    return queue
+}

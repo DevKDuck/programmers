@@ -1,0 +1,36 @@
+import Foundation
+
+func solution(_ tickets:[[String]]) -> [String] {
+    
+    var tickets = tickets.sorted{$0[1] < $1[1]}
+    var visited = Array(repeating: false, count: tickets.count)
+    var path = [String]()
+    
+    func dfs(city: String){
+        //마지막 여행지를 추가
+        if path.count == tickets.count{
+            path.append(city)
+            return
+        }
+        for i in 0..<tickets.count{
+            
+            let start = tickets[i][0]
+            let dest = tickets[i][1]
+            
+            if city == start && visited[i] == false{
+                path.append(start)
+                visited[i] = true
+                dfs(city: dest)
+                // 모든 도시를 경유했으면 리턴
+                if path.count == tickets.count + 1{
+                    return
+                }
+                // 다음 도시가 일치하지 않을 경우 제거
+                path.removeLast()
+                visited[i] = false
+            }
+        }
+    }
+    dfs(city: "ICN")    
+    return path
+}

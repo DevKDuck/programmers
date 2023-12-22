@@ -1,0 +1,62 @@
+import Foundation
+
+func solution(_ begin:String, _ target:String, _ words:[String]) -> Int {
+    
+    var visited = Array(repeating: false, count: words.count)
+    var path = [[String]]()
+    var start = begin.map{String($0)}
+    var des = target.map{String($0)}
+    var wordsArray = [[String]]()
+    
+    for word in words{
+        let w = word.map{String($0)}
+        wordsArray.append(w)
+    }
+    
+    var result = 0
+    
+    func bfs(word: [String]){
+      
+        if word == des{
+            if result < path.count{
+                // path.removeLast()
+            }
+            else{
+                path.append(word)
+                result = path.count
+                print("ㅇ")
+            }
+            return
+        }
+        
+        for i in 0..<wordsArray.count{
+            var diff = 0
+            for j in 0..<wordsArray[i].count{
+                if wordsArray[i][j] != start[j]{
+                    diff += 1
+                }
+            }
+            if diff == 1 && visited[i] == false{
+                path.append(wordsArray[i])
+                visited[i] = true
+                start = wordsArray[i]
+                bfs(word:start)
+               if start != des && !path.isEmpty{
+                   bfs(word:start)
+                   let q = path.removeLast()
+                   print(q)
+                   visited[i] = false
+                   return
+               }
+            }
+             
+        }
+        
+        
+    }
+    bfs(word:start)
+    print(path)
+    
+    
+    return 0
+}

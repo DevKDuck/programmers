@@ -1,0 +1,31 @@
+import java.util.*;
+
+public class Solution {
+    public int[] solution(int []arr) {
+        Stack<Integer> stackInt = new Stack<>();
+        
+        for(var num: arr){
+            if (stackInt.empty()){
+                stackInt.push(num);
+            }
+            else{
+                if (stackInt.peek() == num){
+                    
+                }
+                else{
+                    stackInt.push(num);
+                }
+            }
+            
+        }
+        
+        int[] answer = new int[stackInt.size()];
+        
+        
+        for (int i = stackInt.size()-1; i >= 0; i--){
+            answer[i] = stackInt.pop();   
+        }
+
+        return answer;
+    }
+}

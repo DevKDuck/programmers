@@ -1,0 +1,14 @@
+class Solution {
+    public int solution(int a, int b) {
+        String strA = "";
+        String strB = "";
+        
+        strA += a;
+        strA += b;
+        
+        strB += b;
+        strB += a;
+        
+        return Math.max(Integer.parseInt(strA),Integer.parseInt(strB));
+    }
+}

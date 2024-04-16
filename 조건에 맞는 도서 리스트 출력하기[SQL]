@@ -1,0 +1,8 @@
+SELECT 
+    BOOK_ID, DATE_FORMAT(PUBLISHED_DATE,'%Y-%m-%d')
+FROM 
+    BOOK 
+where 
+    category = '인문' AND YEAR(published_date) = 2021 
+ORDER BY 
+    BOOK_ID ASC

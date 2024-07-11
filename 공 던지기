@@ -1,0 +1,17 @@
+import java.util.*;
+
+class Solution {
+    public int solution(int[] numbers, int k) {
+        int answer = 0;
+        int count = numbers.length;
+        List<Integer> num_list = new ArrayList<Integer>();
+        int max_count  = k * 2;
+        
+        
+        while (max_count < num_list.length){
+            for (var num: numbers){ num_list.add(num); } 
+        }
+        
+        return answer;
+    }
+}

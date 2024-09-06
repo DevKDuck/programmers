@@ -1,0 +1,20 @@
+import java.util.*;
+import java.time.*;
+
+public class Main{
+    public static void main(String[]args){
+        Scanner sc = new Scanner(System.in);
+        String t = sc.nextLine();
+        int plusT = sc.nextInt();
+        sc.close();
+        
+        String[] tArr = t.split(" ");
+        int h = Integer.parseInt(tArr[0]);
+        int m = Integer.parseInt(tArr[1]);
+        LocalTime nowTime = LocalTime.of(h,m);
+        LocalTime plusTime = nowTime.plusMinutes(plusT);
+        
+        String answer = plusTime.getHour() + " " + plusTime.getMinute();
+        System.out.print(answer);
+    }
+}

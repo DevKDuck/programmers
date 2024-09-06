@@ -1,0 +1,17 @@
+import java.util.*;
+
+public class Main{
+    public static void main(String[]args){
+        Scanner sc = new Scanner(System.in);
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+        String strb = Integer.toString(b);
+        int one = Integer.parseInt(strb.substring(0,1));
+        int two = Integer.parseInt(strb.substring(1,2));
+        int three = Integer.parseInt(strb.substring(2,3));
+        System.out.println(a*three);
+        System.out.println(a*two);
+        System.out.println(a*one);
+        System.out.println(a*b);
+    }
+}
